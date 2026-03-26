@@ -1,12 +1,170 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  
+  name      String
+  email     String    @unique
+  password  String
+
+  isAdmin   Boolean   @default(false)
+    
+  addresses Address[]
+  orders    Order[]
+  favorites Favorite[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Address {
+  id         Int      @id @default(autoincrement())
+
+  user       User     @relation(fields: [userId], references: [id])
+  userId     Int
+
+  type       AddressType[]
+
+  street     String
+  city       String
+  postalCode String
+  country    String
+
+  deliveryOrders Order[] @relation("DeliveryAddress")
+  billingOrders  Order[] @relation("BillingAddress")
+    
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+enum AddressType {
+  DELIVERY
+  BILLING
+}
+
+model Product {
+  id          Int       @id @default(autoincrement())
+
+  name        String
+  description String
+  price       Float
+  brand       String
+  inStock     Boolean   @default(true)
+  image       String?
+
+  sizes       Size[]
+  colors      Color[]
+
+  category    Category  @relation(fields: [categoryId], references: [id])
+  categoryId  Int
+
+  orderItems  OrderItem[]
+  favorites   Favorite[]
+
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+enum Size {
+  XS
+  S
+  M
+  L
+  XL
+  EU_40
+  EU_41
+  EU_42
+  EU_43
+  EU_44
+  EU_45
+  EU_46
+}
+
+enum Color {
+  RED
+  BLUE
+  GREEN
+  BLACK
+  WHITE
+  YELLOW
+  ORANGE
+  PURPLE
+  PINK
+  BROWN
+  GRAY
+}
+
+model Category {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  products  Product[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Order {
+  id               Int         @id @default(autoincrement())
+
+  user             User        @relation(fields: [userId], references: [id])
+  userId           Int
+  
+  status           OrderStatus @default(PENDING)
+  totalPrice       Float
+  
+  deliveryAddress  Address     @relation("DeliveryAddress", fields: [deliveryAddressId], references: [id])
+  deliveryAddressId Int
+  
+  billingAddress   Address     @relation("BillingAddress", fields: [billingAddressId], references: [id])
+  billingAddressId  Int
+  
+  items            OrderItem[]
+  
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  SHIPPED
+  DELIVERED
+}
+
+model OrderItem {
+  id        Int     @id @default(autoincrement())
+
+  order     Order   @relation(fields: [orderId], references: [id])
+  orderId   Int
+
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
+
+  price     Float
+
+  size      Size?
+  color     Color?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Favorite {
+  id        Int     @id @default(autoincrement())
+
+  user      User    @relation(fields: [userId], references: [id])
+  userId    Int
+  
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+    
+  @@unique([userId, productId])
 }
