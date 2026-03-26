@@ -28,6 +28,8 @@ The application allows users to browse products, search and filter, manage favor
 
 ### API Endpoints
 
+Swagger documentation is available at http://localhost:3000/api
+
 **Products**
 
 - `GET /products` - list products with filters (search, category, sort, inStock)
@@ -116,6 +118,26 @@ The admin dashboard is focused on functionality and optimized for desktop use. I
 - Table of all orders with status filtering (PENDING, CONFIRMED, SHIPPED, DELIVERED)
 - Detailed order view (items, user, shipping address, total price)
 - Update order status
+
+## Database Preview
+
+You can explore the database structure and data using Prisma Studio with the following command:
+
+`npx prisma studio --url postgresql://postgres:postgres@localhost:5433/cart`
+
+![preview](./docs/assets/images/preview.png)
+
+## Test Users
+
+The following users are pre-created for testing authentication and authorization:
+
+| Role  | Email           | Password    |
+| ----- | --------------- | ----------- |
+| USER  | user@user.com   | password123 |
+| ADMIN | admin@admin.com | password123 |
+
+**USER** can browse products, manage favorites, create orders, and manage their addresses
+**ADMIN** has full access to products and categories, and can view and manage all orders
 
 ## Setup
 
