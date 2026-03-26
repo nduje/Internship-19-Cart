@@ -4,6 +4,7 @@ WORKDIR /app
 
 COPY package*.json ./
 RUN npm ci
+RUN npm install tsx --save-prod
 
 COPY . .
 

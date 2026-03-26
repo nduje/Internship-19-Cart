@@ -2,7 +2,9 @@
 set -e
 
 echo "Waiting for the database to be ready..."
-sleep 3
+until nc -z db 5432; do
+  sleep 1
+done
 
 echo "Applying database structure..."
 npx prisma db push --accept-data-loss
