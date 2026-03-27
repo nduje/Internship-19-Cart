@@ -1,3 +1,4 @@
+import { PrismaPg } from '@prisma/adapter-pg';
 import {
   AddressType,
   Color,
@@ -7,7 +8,8 @@ import {
   Size,
 } from '@prisma/client';
 
-import { PrismaPg } from '@prisma/adapter-pg';
+// import { PrismaPg } from '@prisma/adapter-pg';
+import bcrypt from 'bcrypt';
 import { Pool } from 'pg';
 
 const pool = new Pool({
@@ -21,11 +23,13 @@ const prisma = new PrismaClient({
 });
 
 async function main() {
+  const hashedPassword = await bcrypt.hash('password123', 10);
+
   const admin = await prisma.user.create({
     data: {
       name: 'Admin',
       email: 'admin@admin.com',
-      password: 'password123',
+      password: hashedPassword,
       isAdmin: true,
     },
   });
@@ -34,7 +38,7 @@ async function main() {
     data: {
       name: 'Duje Nikolić Malora',
       email: 'user@user.com',
-      password: 'password123',
+      password: hashedPassword,
       isAdmin: false,
       addresses: {
         create: {
