@@ -35,6 +35,24 @@ export class AuthService {
         name: dto.name,
         email: dto.email,
         password: hashedPassword,
+        addresses: {
+          create: [
+            {
+              type: 'DELIVERY',
+              street: '',
+              city: '',
+              postalCode: '',
+              country: '',
+            },
+            {
+              type: 'BILLING',
+              street: '',
+              city: '',
+              postalCode: '',
+              country: '',
+            },
+          ],
+        },
       },
     });
 
