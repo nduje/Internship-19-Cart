@@ -12,13 +12,13 @@ export class AuthController {
 
   @ApiResponse({ status: 200, description: 'User registered' })
   @Post('register')
-  register(@Body() { name, email, password }: RegisterDto) {
-    return this.authService.register({ name, email, password });
+  register(@Body() dto: RegisterDto) {
+    return this.authService.register(dto);
   }
 
   @ApiResponse({ status: 200, description: 'User logged in' })
   @Post('login')
-  login(@Body() { email, password }: LoginDto) {
-    return this.authService.login({ email, password });
+  login(@Body() dto: LoginDto) {
+    return this.authService.login(dto);
   }
 }

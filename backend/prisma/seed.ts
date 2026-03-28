@@ -8,7 +8,6 @@ import {
   Size,
 } from '@prisma/client';
 
-// import { PrismaPg } from '@prisma/adapter-pg';
 import bcrypt from 'bcrypt';
 import { Pool } from 'pg';
 
@@ -41,15 +40,22 @@ async function main() {
       password: hashedPassword,
       isAdmin: false,
       addresses: {
-        create: {
-          type: {
-            set: [AddressType.DELIVERY, AddressType.BILLING],
+        create: [
+          {
+            type: AddressType.DELIVERY,
+            street: 'Pujanke 53',
+            city: 'Split',
+            postalCode: '21000',
+            country: 'Croatia',
           },
-          street: 'Pujanke 53',
-          city: 'Split',
-          postalCode: '21000',
-          country: 'Croatia',
-        },
+          {
+            type: AddressType.BILLING,
+            street: 'Pujanke 53',
+            city: 'Split',
+            postalCode: '21000',
+            country: 'Croatia',
+          },
+        ],
       },
     },
     include: { addresses: true },

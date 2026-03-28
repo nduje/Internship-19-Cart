@@ -7,6 +7,8 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import { compare, hash } from 'bcrypt';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { LoginDto } from './dto/login.dto';
+import { RegisterDto } from './dto/register.dto';
 
 @Injectable()
 export class AuthService {
@@ -15,14 +17,10 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async register(RegisterDto: {
-    name: string;
-    email: string;
-    password: string;
-  }) {
+  async register(dto: RegisterDto) {
     const existingUser = await this.prisma.user.findUnique({
       where: {
-        email: RegisterDto.email,
+        email: dto.email,
       },
     });
 
@@ -30,12 +28,12 @@ export class AuthService {
       throw new BadRequestException('User already exists');
     }
 
-    const hashedPassword = await hash(RegisterDto.password, 10);
+    const hashedPassword = await hash(dto.password, 10);
 
     const user = await this.prisma.user.create({
       data: {
-        name: RegisterDto.name,
-        email: RegisterDto.email,
+        name: dto.name,
+        email: dto.email,
         password: hashedPassword,
       },
     });
@@ -50,10 +48,10 @@ export class AuthService {
     };
   }
 
-  async login(LoginDto: { email: string; password: string }) {
+  async login(dto: LoginDto) {
     const user = await this.prisma.user.findUnique({
       where: {
-        email: LoginDto.email,
+        email: dto.email,
       },
     });
 
@@ -61,7 +59,7 @@ export class AuthService {
       throw new NotFoundException('User does not exist');
     }
 
-    const isPasswordValid = await compare(LoginDto.password, user.password);
+    const isPasswordValid = await compare(dto.password, user.password);
 
     if (!isPasswordValid) {
       throw new ForbiddenException('Password not valid');

@@ -29,7 +29,7 @@ model Address {
   user       User     @relation(fields: [userId], references: [id])
   userId     Int
 
-  type       AddressType[]
+  type       AddressType
 
   street     String
   city       String

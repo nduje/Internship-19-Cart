@@ -25,8 +25,8 @@ export class CategoriesController {
   @ApiResponse({ status: 201, description: 'Category created' })
   @ApiResponse({ status: 500, description: 'Category already exists' })
   @Post()
-  create(@Body() { name }: CreateCategoryDto) {
-    return this.categoriesService.create({ name });
+  create(@Body() dto: CreateCategoryDto) {
+    return this.categoriesService.create(dto);
   }
 
   @ApiParam({ name: 'id', type: Number })

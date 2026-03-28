@@ -1,17 +1,29 @@
-import { Controller, Get, Put } from '@nestjs/common';
+import { Body, Controller, Get, Put, Request, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { UserAuthGuard } from 'src/auth/user-auth.guard';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersService } from './users.service';
 
+@ApiTags('Users')
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  @UseGuards(UserAuthGuard)
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'User information retrieved' })
   @Get('me')
-  find() {
-    return this.usersService.find();
+  find(@Request() req) {
+    const userId = req.user.id;
+    return this.usersService.find(userId);
   }
 
-  @Put()
-  update() {
-    return this.usersService.update();
+  @UseGuards(UserAuthGuard)
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'User information updated' })
+  @Put('me')
+  update(@Body() dto: UpdateUserDto, @Request() req) {
+    const userId = req.user.id;
+    return this.usersService.update(userId, dto);
   }
 }
