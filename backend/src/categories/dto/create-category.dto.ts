@@ -1,11 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, MinLength } from 'class-validator';
-import { LoginDto } from './login.dto';
 
-export class RegisterDto extends LoginDto {
+export class CreateCategoryDto {
   @ApiProperty({
-    example: 'Tonći Huljić',
-    description: 'Name of the user',
+    example: 'Streetwear',
+    description: 'Name of the category',
     required: true,
   })
   @IsString()
