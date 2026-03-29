@@ -58,6 +58,7 @@ export class CreateProductDto {
     example: 19.99,
     description: 'Product Price',
     required: true,
+    minimum: 0,
   })
   @IsNumber()
   price: number;
