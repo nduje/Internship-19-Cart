@@ -9,7 +9,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { UserAuthGuard } from 'src/auth/user-auth.guard';
+import { UserAuthGuard } from 'src/modules/auth/user-auth.guard';
 import { FavoritesService } from './favorites.service';
 
 @ApiTags('Favorites')

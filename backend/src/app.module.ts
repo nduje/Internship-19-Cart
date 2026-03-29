@@ -2,13 +2,13 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config/dist/config.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AuthModule } from './auth/auth.module';
-import { CategoriesModule } from './categories/categories.module';
-import { FavoritesModule } from './favorites/favorites.module';
-import { OrdersModule } from './orders/orders.module';
-import { PrismaModule } from './prisma/prisma.module';
-import { ProductsModule } from './products/products.module';
-import { UsersModule } from './users/users.module';
+import { PrismaModule } from './config/prisma.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { CategoriesModule } from './modules/categories/categories.module';
+import { FavoritesModule } from './modules/favorites/favorites.module';
+import { OrdersModule } from './modules/orders/orders.module';
+import { ProductsModule } from './modules/products/products.module';
+import { UsersModule } from './modules/users/users.module';
 
 @Module({
   imports: [

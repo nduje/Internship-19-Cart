@@ -10,8 +10,8 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { AdminAuthGuard } from 'src/auth/admin-auth.guard';
-import { UserAuthGuard } from 'src/auth/user-auth.guard';
+import { AdminAuthGuard } from 'src/modules/auth/admin-auth.guard';
+import { UserAuthGuard } from 'src/modules/auth/user-auth.guard';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { OrdersService } from './orders.service';
