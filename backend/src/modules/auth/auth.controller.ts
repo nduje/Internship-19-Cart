@@ -11,14 +11,14 @@ import { RegisterDto } from './dto/register.dto';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @ApiResponse({ status: 200, description: 'User registered' })
+  @ApiResponse({ status: 201, description: 'User registered' })
   @Post('register')
   @Throttle({ default: { ttl: 60000, limit: 5 } })
   register(@Body() dto: RegisterDto) {
     return this.authService.register(dto);
   }
 
-  @ApiResponse({ status: 200, description: 'User logged in' })
+  @ApiResponse({ status: 201, description: 'User logged in' })
   @Post('login')
   @Throttle({ default: { ttl: 60000, limit: 5 } })
   login(@Body() dto: LoginDto) {
