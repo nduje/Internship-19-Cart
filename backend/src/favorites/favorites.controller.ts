@@ -21,7 +21,6 @@ export class FavoritesController {
   @ApiBearerAuth()
   @ApiParam({ name: 'productId', type: Number })
   @ApiResponse({ status: 201, description: 'Product added to favorites.' })
-  @ApiResponse({ status: 401, description: 'Unauthorized. Admin access only.' })
   @ApiResponse({
     status: 400,
     description: 'Product is already in favorites list.',

@@ -46,7 +46,11 @@ export class OrdersController {
   @UseGuards(AdminAuthGuard)
   @ApiBearerAuth()
   @ApiResponse({ status: 200, description: 'Orders retrieved.' })
-  @ApiResponse({ status: 403, description: 'Unauthorized. Admin access only.' })
+  @ApiResponse({ status: 401, description: 'Unauthorized. Admin access only.' })
+  @ApiResponse({
+    status: 403,
+    description: 'Forbidden access. Admin access only.',
+  })
   @Get()
   findAll() {
     return this.ordersService.findAll();
@@ -55,7 +59,11 @@ export class OrdersController {
   @UseGuards(AdminAuthGuard)
   @ApiBearerAuth()
   @ApiResponse({ status: 200, description: 'Order status updated.' })
-  @ApiResponse({ status: 403, description: 'Unauthorized. Admin access only.' })
+  @ApiResponse({ status: 401, description: 'Unauthorized. Admin access only.' })
+  @ApiResponse({
+    status: 403,
+    description: 'Forbidden access. Admin access only.',
+  })
   @ApiResponse({ status: 404, description: 'Order not found.' })
   @Patch(':id/status')
   update(@Body() dto: UpdateOrderDto, @Param('id', ParseIntPipe) id: number) {

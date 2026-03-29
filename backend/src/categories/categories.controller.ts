@@ -28,6 +28,10 @@ export class CategoriesController {
   @ApiBearerAuth()
   @ApiResponse({ status: 201, description: 'Category created.' })
   @ApiResponse({ status: 401, description: 'Unauthorized. Admin access only.' })
+  @ApiResponse({
+    status: 403,
+    description: 'Forbidden access. Admin access only.',
+  })
   @ApiResponse({ status: 500, description: 'Category already exists.' })
   @Post()
   create(@Body() dto: CreateCategoryDto) {
@@ -39,6 +43,10 @@ export class CategoriesController {
   @ApiParam({ name: 'id', type: Number })
   @ApiResponse({ status: 200, description: 'Category deleted.' })
   @ApiResponse({ status: 401, description: 'Unauthorized. Admin access only.' })
+  @ApiResponse({
+    status: 403,
+    description: 'Forbidden access. Admin access only.',
+  })
   @ApiResponse({ status: 404, description: 'Category not found.' })
   @Delete(':id')
   remove(@Param('id', ParseIntPipe) id: number) {
