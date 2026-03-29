@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsArray, IsEnum, IsNumber, IsString } from 'class-validator';
+import { IsEnum, IsNumber, IsString } from 'class-validator';
 
 export enum AddressType {
   DELIVERY = 'DELIVERY',
@@ -20,7 +20,6 @@ export class AddressDto {
     description: 'Address Type (DELIVERY | BILLING)',
     required: true,
   })
-  @IsArray()
   @IsEnum(AddressType, { each: true })
   type: AddressType;
 
