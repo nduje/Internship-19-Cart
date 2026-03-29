@@ -7,28 +7,52 @@ export enum AddressType {
 }
 
 export class AddressDto {
-  @ApiProperty({ example: 1, required: true })
+  @ApiProperty({
+    example: 1,
+    description: 'Address Identification Number',
+    required: true,
+  })
   @IsNumber()
   id: number;
 
-  @ApiProperty({ example: 'DELIVERY', required: true })
+  @ApiProperty({
+    example: 'DELIVERY',
+    description: 'Address Type (DELIVERY | BILLING)',
+    required: true,
+  })
   @IsArray()
   @IsEnum(AddressType, { each: true })
   type: AddressType;
 
-  @ApiProperty({ example: 'Pujanke 53', required: true })
+  @ApiProperty({
+    example: 'Pujanke 53',
+    description: 'Address Street',
+    required: true,
+  })
   @IsString()
   street: string;
 
-  @ApiProperty({ example: 'Split', required: true })
+  @ApiProperty({
+    example: 'Split',
+    description: 'Address City',
+    required: true,
+  })
   @IsString()
   city: string;
 
-  @ApiProperty({ example: '21000', required: true })
+  @ApiProperty({
+    example: '21000',
+    description: 'Address Postal Code',
+    required: true,
+  })
   @IsString()
   postalCode: string;
 
-  @ApiProperty({ example: 'Croatia', required: true })
+  @ApiProperty({
+    example: 'Croatia',
+    description: 'Address Country',
+    required: true,
+  })
   @IsString()
   country: string;
 }

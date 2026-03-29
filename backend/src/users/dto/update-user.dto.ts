@@ -12,7 +12,7 @@ import { AddressDto } from './address.dto';
 export class UpdateUserDto {
   @ApiProperty({
     example: 'Tonći Huljić',
-    description: 'Name of the user',
+    description: "User's Name",
     required: true,
   })
   @IsOptional()
@@ -22,7 +22,7 @@ export class UpdateUserDto {
 
   @ApiProperty({
     example: 'user@user.com',
-    description: 'Email of the user',
+    description: "User's Email",
     required: true,
   })
   @IsOptional()
@@ -31,7 +31,7 @@ export class UpdateUserDto {
 
   @ApiProperty({
     example: 'password123',
-    description: 'Password of the user',
+    description: "User's Password",
     required: true,
   })
   @IsOptional()
@@ -41,6 +41,7 @@ export class UpdateUserDto {
 
   @ApiProperty({
     type: [AddressDto],
+    description: "User's Addresses (DELIVERY | BILLING)",
     required: false,
   })
   @IsOptional()

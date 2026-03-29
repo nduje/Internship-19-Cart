@@ -4,7 +4,7 @@ import { IsString, MinLength } from 'class-validator';
 export class CreateCategoryDto {
   @ApiProperty({
     example: 'Streetwear',
-    description: 'Name of the category',
+    description: 'Category Name',
     required: true,
   })
   @IsString()

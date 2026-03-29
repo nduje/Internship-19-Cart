@@ -11,7 +11,8 @@ export class UsersController {
 
   @UseGuards(UserAuthGuard)
   @ApiBearerAuth()
-  @ApiResponse({ status: 200, description: 'User information retrieved' })
+  @ApiResponse({ status: 200, description: 'User information retrieved.' })
+  @ApiResponse({ status: 401, description: 'Unauthorized. User access only.' })
   @Get('me')
   find(@Request() req) {
     const userId = req.user.id;
@@ -20,7 +21,8 @@ export class UsersController {
 
   @UseGuards(UserAuthGuard)
   @ApiBearerAuth()
-  @ApiResponse({ status: 200, description: 'User information updated' })
+  @ApiResponse({ status: 200, description: 'User information updated.' })
+  @ApiResponse({ status: 401, description: 'Unauthorized. User access only.' })
   @Put('me')
   update(@Body() dto: UpdateUserDto, @Request() req) {
     const userId = req.user.id;

@@ -20,12 +20,14 @@ export class FavoritesController {
   @UseGuards(UserAuthGuard)
   @ApiBearerAuth()
   @ApiParam({ name: 'productId', type: Number })
-  @ApiResponse({ status: 201, description: 'Product added to favorites' })
+  @ApiResponse({ status: 201, description: 'Product added to favorites.' })
+  @ApiResponse({ status: 401, description: 'Unauthorized. Admin access only.' })
   @ApiResponse({
     status: 400,
-    description: 'Product is already in favorites list',
+    description: 'Product is already in favorites list.',
   })
-  @ApiResponse({ status: 404, description: 'Product not found' })
+  @ApiResponse({ status: 401, description: 'Unauthorized. User access only.' })
+  @ApiResponse({ status: 404, description: 'Product not found.' })
   @Post(':productId')
   create(@Param('productId', ParseIntPipe) productId: number, @Request() req) {
     const userId = req.user.id;
@@ -34,7 +36,8 @@ export class FavoritesController {
 
   @UseGuards(UserAuthGuard)
   @ApiBearerAuth()
-  @ApiResponse({ status: 200, description: 'User favorites retrieved' })
+  @ApiResponse({ status: 200, description: 'User favorites retrieved.' })
+  @ApiResponse({ status: 401, description: 'Unauthorized. User access only.' })
   @Get()
   findAll(@Request() req) {
     const userId = req.user.id;
@@ -44,12 +47,13 @@ export class FavoritesController {
   @UseGuards(UserAuthGuard)
   @ApiBearerAuth()
   @ApiParam({ name: 'productId', type: Number })
-  @ApiResponse({ status: 200, description: 'Product removed from favorites' })
+  @ApiResponse({ status: 200, description: 'Product removed from favorites.' })
   @ApiResponse({
     status: 400,
-    description: 'Product does is not in favorites list',
+    description: 'Product does is not in favorites list.',
   })
-  @ApiResponse({ status: 404, description: 'Product not found' })
+  @ApiResponse({ status: 401, description: 'Unauthorized. User access only.' })
+  @ApiResponse({ status: 404, description: 'Product not found.' })
   @Delete(':productId')
   remove(@Param('productId', ParseIntPipe) productId: number, @Request() req) {
     const userId = req.user.id;
