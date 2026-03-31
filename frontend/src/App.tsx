@@ -1,16 +1,29 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import Layout from "./components/Layout/Layout";
+import Home from "./pages/Home/Home";
 
 function App() {
     return (
         <Routes>
-            <Route path="/" />
-            <Route path="/products" />
-            <Route path="/products/:id" />
-            <Route path="/login" />
-            <Route path="/register" />
+            <Route>
+                <Route
+                    path="/"
+                    element={
+                        <Layout showHeader={true} showFooter={true}>
+                            <Home />
+                        </Layout>
+                    }
+                />
+                <Route path="/products" />
+                <Route path="/products/:id" />
+                <Route path="/search" />
+                <Route path="/login" />
+                <Route path="/register" />
+            </Route>
 
             <Route>
+                <Route path="/favorites" />
                 <Route path="/cart" />
                 <Route path="/checkout" />
                 <Route path="/profile" />
@@ -24,6 +37,8 @@ function App() {
                 <Route path="/admin/orders" />
                 <Route path="/admin/categories" />
             </Route>
+
+            <Route path="*" />
         </Routes>
     );
 }

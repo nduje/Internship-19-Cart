@@ -1,0 +1,25 @@
+.container {
+    width: 100%;
+    height: 100%;
+}
+
+.navContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+
+    padding: 24px 9px;
+}
+
+.navLink {
+    opacity: 50%;
+}
+
+.active {
+    opacity: 100%;
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+}
