@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Layout from "./components/Layout/Layout";
 import Home from "./pages/Home/Home";
+import Profile from "./pages/Profile/Profile";
 
 function App() {
     return (
@@ -26,7 +27,14 @@ function App() {
                 <Route path="/favorites" />
                 <Route path="/cart" />
                 <Route path="/checkout" />
-                <Route path="/profile" />
+                <Route
+                    path="/profile"
+                    element={
+                        <Layout showHeader={false} showFooter={true}>
+                            <Profile />
+                        </Layout>
+                    }
+                />
                 <Route path="/profile/orders" />
                 <Route path="/profile/addresses" />
             </Route>
