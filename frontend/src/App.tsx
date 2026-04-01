@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Layout from "./components/Layout/Layout";
 import Home from "./pages/Home/Home";
+import Login from "./pages/Login/Login";
 import Profile from "./pages/Profile/Profile";
 
 function App() {
@@ -19,7 +20,14 @@ function App() {
                 <Route path="/products" />
                 <Route path="/products/:id" />
                 <Route path="/search" />
-                <Route path="/login" />
+                <Route
+                    path="/login"
+                    element={
+                        <Layout showHeader={false} showFooter={true}>
+                            <Login />
+                        </Layout>
+                    }
+                />
                 <Route path="/register" />
             </Route>
 

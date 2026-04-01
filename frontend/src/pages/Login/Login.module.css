@@ -6,7 +6,7 @@
     align-items: center;
     gap: 2rem;
 
-    padding: 1.5rem;
+    padding: 1rem;
 }
 
 .title {
@@ -21,10 +21,41 @@
     color: #5a3e36;
 }
 
-.description {
-    color: black;
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    gap: 1rem;
+}
+
+.input_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 75%;
+}
+
+.label {
+    margin-bottom: 0.5rem;
+}
+
+.input {
+    background-color: #5a3e36;
+    padding: 0.5rem 2rem;
     font-size: 1rem;
-    text-align: center;
+    font-weight: 300;
+    letter-spacing: 2px;
+    color: white;
+    border-radius: 60px;
+    border: 2px solid #5a3e36;
+    box-shadow:
+        rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+        rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    transition: 0.4s;
+    width: 100%;
 }
 
 .buttons_container {
