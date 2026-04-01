@@ -1,6 +1,8 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import AdminLayout from "./components/AdminLayout/AdminLayout";
 import Layout from "./components/Layout/Layout";
+import Admin from "./pages/Admin/Admin";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import Profile from "./pages/Profile/Profile";
@@ -48,7 +50,14 @@ function App() {
             </Route>
 
             <Route>
-                <Route path="/admin" />
+                <Route
+                    path="/admin"
+                    element={
+                        <AdminLayout>
+                            <Admin />
+                        </AdminLayout>
+                    }
+                />
                 <Route path="/admin/products" />
                 <Route path="/admin/orders" />
                 <Route path="/admin/categories" />
