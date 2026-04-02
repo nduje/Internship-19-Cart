@@ -61,8 +61,8 @@ model Product {
   sizes       Size[]
   colors      Color[]
 
-  category    Category  @relation(fields: [categoryId], references: [id])
-  categoryId  Int
+  category    Category?  @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  categoryId  Int?
 
   orderItems  OrderItem[]
   favorites   Favorite[]

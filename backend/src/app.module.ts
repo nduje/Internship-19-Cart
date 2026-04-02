@@ -32,7 +32,7 @@ import { UsersModule } from './modules/users/users.module';
     ThrottlerModule.forRoot([
       {
         ttl: 60000,
-        limit: 5,
+        limit: 100,
       },
     ]),
   ],
