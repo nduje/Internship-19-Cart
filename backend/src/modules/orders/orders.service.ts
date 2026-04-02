@@ -3,6 +3,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { OrderStatus } from '@prisma/client';
 import { PrismaService } from 'src/config/prisma.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
@@ -90,9 +91,17 @@ export class OrdersService {
     });
   }
 
-  findAll() {
+  findAll(status?: OrderStatus) {
     return this.prisma.order.findMany({
+      where: status
+        ? {
+            status,
+          }
+        : {},
       include: {
+        user: true,
+        deliveryAddress: true,
+        billingAddress: true,
         items: {
           include: {
             product: true,

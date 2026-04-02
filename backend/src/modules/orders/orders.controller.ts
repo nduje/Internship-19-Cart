@@ -6,10 +6,12 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
   Request,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { OrderStatus } from '@prisma/client';
 import { AdminAuthGuard } from 'src/modules/auth/admin-auth.guard';
 import { UserAuthGuard } from 'src/modules/auth/user-auth.guard';
 import { CreateOrderDto } from './dto/create-order.dto';
@@ -51,9 +53,15 @@ export class OrdersController {
     status: 403,
     description: 'Forbidden access. Admin access only.',
   })
+  @ApiQuery({
+    name: 'status',
+    required: false,
+    enum: OrderStatus,
+    description: 'Order status',
+  })
   @Get()
-  findAll() {
-    return this.ordersService.findAll();
+  findAll(@Query('status') status?: OrderStatus) {
+    return this.ordersService.findAll(status);
   }
 
   @UseGuards(AdminAuthGuard)
