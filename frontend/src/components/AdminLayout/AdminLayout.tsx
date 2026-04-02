@@ -25,7 +25,7 @@ const AdminLayout = ({ children }: PropsWithChildren) => {
                     </NavLink>
                 </nav>
             </header>
-            <main>{children}</main>
+            <main className={styles.main}>{children}</main>
         </div>
     );
 };

@@ -5,6 +5,7 @@ import Layout from "./components/Layout/Layout";
 import Admin from "./pages/Admin/Admin";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
+import ManageCategories from "./pages/ManageCategories/ManageCategories";
 import Profile from "./pages/Profile/Profile";
 
 function App() {
@@ -60,7 +61,14 @@ function App() {
                 />
                 <Route path="/admin/products" />
                 <Route path="/admin/orders" />
-                <Route path="/admin/categories" />
+                <Route
+                    path="/admin/categories"
+                    element={
+                        <AdminLayout>
+                            <ManageCategories />
+                        </AdminLayout>
+                    }
+                />
             </Route>
 
             <Route path="*" />

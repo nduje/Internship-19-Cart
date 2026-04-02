@@ -1,0 +1,109 @@
+.container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+
+    padding: 2rem;
+}
+
+.title {
+    color: black;
+    font-size: 4rem;
+    font-weight: 700;
+    text-decoration: underline;
+    text-align: center;
+}
+
+.add_category_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
+}
+
+.input {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    color: black;
+    letter-spacing: 2px;
+    border-radius: 10px;
+    border: 2px dashed black;
+    box-shadow:
+        rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+        rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    transition: 0.4s;
+    cursor: pointer;
+}
+
+.categories_container {
+    display: flex;
+    flex-direction: column;
+
+    gap: 2rem;
+
+    width: 100%;
+}
+
+.category {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 2rem;
+
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+}
+
+.category_name {
+    text-transform: uppercase;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.button,
+.add_button,
+.delete_button {
+    background-color: #5a3e36;
+    padding: 0.5rem 2rem;
+    color: white;
+    cursor: pointer;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 400;
+    border-radius: 60px;
+    border: 2px solid #5a3e36;
+    box-shadow:
+        rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+        rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    transition: 0.4s;
+}
+
+.delete_button {
+    background-color: red;
+    padding: 0.5rem 1rem;
+    border: 2px solid red;
+    font-weight: 600;
+}
+
+.add_button {
+    background-color: darkgreen;
+    border: 2px solid darkgreen;
+    font-weight: 600;
+}
+
+.button:hover {
+    opacity: 90%;
+}
+
+.delete_button:hover,
+.add_button:hover {
+    opacity: 70%;
+}
