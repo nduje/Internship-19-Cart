@@ -122,15 +122,13 @@ const ManageCategories = () => {
     const handleDelete = (category: Category) => {
         const hasProducts = category.products && category.products.length > 0;
 
-        let message = `Are you sure you want to delete ${category.name} category?`;
-
         if (hasProducts) {
-            message = `Category ${category.name} has connected products. Do you want to proceed?`;
+            const message = `Category ${category.name} has connected products. Do you want to proceed?`;
+
+            if (!window.confirm(message)) return;
         }
 
-        if (window.confirm(message)) {
-            deleteMutation.mutate(category.id);
-        }
+        deleteMutation.mutate(category.id);
     };
 
     return (
