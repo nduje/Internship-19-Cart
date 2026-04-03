@@ -1,0 +1,115 @@
+.container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+
+    padding: 2rem;
+}
+
+.title {
+    color: black;
+    font-size: 4rem;
+    font-weight: 700;
+    text-decoration: underline;
+    text-align: center;
+}
+
+.products_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+
+    padding: 0 8rem;
+    gap: 2rem;
+}
+
+.product {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 2rem;
+    gap: 4rem;
+
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+}
+
+.main_info,
+.variants,
+.status_actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+
+    gap: 1rem;
+}
+
+.product_name {
+    font-weight: 900;
+    font-size: 1.5rem;
+}
+
+.tag_group {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 0.25rem;
+}
+
+.tag {
+    background: #5a3e36;
+    color: white;
+    font-weight: 600;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 60px;
+}
+
+.price {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.in_stock {
+    color: green;
+    font-weight: bold;
+
+    border: 2px dashed green;
+    padding: 0.5rem;
+}
+
+.out_of_stock {
+    color: red;
+    font-weight: bold;
+
+    border: 2px dashed red;
+    padding: 0.5rem;
+}
+
+.in_stock,
+.out_of_stock {
+    text-transform: uppercase;
+}
+
+.delete_button {
+    background-color: red;
+    padding: 0.5rem 1rem;
+    border: 2px solid red;
+    font-weight: 600;
+}
+
+.delete_button:hover {
+    opacity: 70%;
+}
