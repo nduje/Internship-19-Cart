@@ -110,13 +110,22 @@ async function main() {
 
   const createdProducts: Product[] = [];
 
-  for (const p of productsData) {
+  const descriptions = [
+    'Bezvremenska elegancija i vrhunski kroj za tvoj savršen formalni izgled.',
+    'Moderna košulja uskog kroja koja savršeno prati liniju tijela za oštar i profesionalan izgled.',
+    'Klasične traperice ravnog kroja koje nude idealan balans između opuštenosti i bezvremenskog stila.',
+    'Mekana i prostrana majica s kapuljačom, stvorena za maksimalnu udobnost i tvoj opušteni street-style.',
+    'Ultra lagane tenisice s naprednom amortizacijom za vrhunske performanse i energiju pri svakom koraku.',
+  ];
+
+  for (const [index, p] of productsData.entries()) {
     const product = await prisma.product.create({
       data: {
         name: p.name,
-        description: `Opis za ${p.name}`,
+        description: descriptions[index],
         price: p.price,
         brand: p.brand,
+        inStock: index === 4 ? false : true,
         image: null,
         categoryId: p.catId,
         sizes: {
@@ -147,6 +156,7 @@ async function main() {
       items: {
         create: orderProducts.map((p) => ({
           productId: p.id,
+          productName: p.name,
           price: p.price,
           size: p.sizes[0],
           color: p.colors[0],

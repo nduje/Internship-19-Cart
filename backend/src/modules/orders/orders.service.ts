@@ -60,6 +60,7 @@ export class OrdersService {
 
       return {
         productId: item.productId,
+        productName: product.name,
         price: product.price,
         size: item.size,
         color: item.color,
