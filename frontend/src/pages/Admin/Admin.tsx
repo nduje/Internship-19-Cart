@@ -1,4 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
+import Button from "../../components/Button/Button";
 import styles from "./Admin.module.css";
 
 const Admin = () => {
@@ -22,13 +23,7 @@ const Admin = () => {
                 <Link to="/admin/orders" className={styles.navLink}>
                     Manage Orders
                 </Link>
-                <button
-                    type="button"
-                    onClick={() => handleSignOut()}
-                    className={styles.button}
-                >
-                    Sign Out
-                </button>
+                <Button onClick={() => handleSignOut()} text="Sign out" />
             </div>
         </section>
     );

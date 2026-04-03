@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import Button from "../../components/Button/Button";
 import styles from "./ManageOrders.module.css";
 
 type ProductItem = {
@@ -113,41 +114,31 @@ const ManageOrders = () => {
         <section className={styles.container}>
             <h1 className={styles.title}>Manage Orders</h1>
             <div className={styles.filters_container}>
-                <button
-                    type="button"
+                <Button
                     onClick={() => setStatusFilter(undefined)}
-                    className={`${styles.button} ${styles.default_button} ${statusFilter === undefined ? "" : styles.inactive}`}
-                >
-                    All Orders
-                </button>
-                <button
-                    type="button"
+                    className={`${styles.default_button} ${statusFilter === undefined ? "" : styles.inactive}`}
+                    text="All Orders"
+                />
+                <Button
                     onClick={() => setStatusFilter("PENDING")}
-                    className={`${styles.button} ${styles.pending_button} ${statusFilter === "PENDING" ? "" : styles.inactive}`}
-                >
-                    PENDING
-                </button>
-                <button
-                    type="button"
+                    className={`${styles.pending_button} ${statusFilter === "PENDING" ? "" : styles.inactive}`}
+                    text="PENDING"
+                />
+                <Button
                     onClick={() => setStatusFilter("CONFIRMED")}
-                    className={`${styles.button} ${styles.confirmed_button} ${statusFilter === "CONFIRMED" ? "" : styles.inactive}`}
-                >
-                    CONFIRMED
-                </button>
-                <button
-                    type="button"
+                    className={`${styles.confirmed_button} ${statusFilter === "CONFIRMED" ? "" : styles.inactive}`}
+                    text="CONFIRMED"
+                />
+                <Button
                     onClick={() => setStatusFilter("SHIPPED")}
-                    className={`${styles.button} ${styles.shipped_button} ${statusFilter === "SHIPPED" ? "" : styles.inactive}`}
-                >
-                    SHIPPED
-                </button>
-                <button
-                    type="button"
+                    className={`${styles.shipped_button} ${statusFilter === "SHIPPED" ? "" : styles.inactive}`}
+                    text="SHIPPED"
+                />
+                <Button
                     onClick={() => setStatusFilter("DELIVERED")}
-                    className={`${styles.button} ${styles.delivered_button} ${statusFilter === "DELIVERED" ? "" : styles.inactive}`}
-                >
-                    DELIVERED
-                </button>
+                    className={`${styles.delivered_button} ${statusFilter === "DELIVERED" ? "" : styles.inactive}`}
+                    text="DELIVERED"
+                />
             </div>
             <article className={styles.orders_container}>
                 {ordersQuery.isLoading ? <p>Loading...</p> : ""}
@@ -283,13 +274,7 @@ const ManageOrders = () => {
                         );
                     })}
             </article>
-            <button
-                type="button"
-                onClick={() => navigate(-1)}
-                className={styles.button}
-            >
-                Go Back
-            </button>
+            <Button onClick={() => navigate("/admin")} />
         </section>
     );
 };

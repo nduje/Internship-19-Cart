@@ -2,6 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { jwtDecode } from "jwt-decode";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Button from "../../components/Button/Button";
 import styles from "./Login.module.css";
 
 type LoginResponse = {
@@ -99,20 +100,14 @@ const Login = () => {
                 </div>
 
                 <div className={styles.buttons_container}>
-                    <button
+                    <Button
                         type="submit"
-                        className={styles.button}
                         disabled={loginMutation.isPending}
-                    >
-                        {loginMutation.isPending ? "Logging in..." : "Login"}
-                    </button>
-                    <button
-                        type="button"
-                        onClick={() => navigate(-1)}
-                        className={styles.button}
-                    >
-                        Go back
-                    </button>
+                        text={
+                            loginMutation.isPending ? "Logging in..." : "Login"
+                        }
+                    />
+                    <Button onClick={() => navigate(-1)} />
                 </div>
             </form>
         </section>

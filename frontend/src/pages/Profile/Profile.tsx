@@ -1,4 +1,5 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Button from "../../components/Button/Button";
 import styles from "./Profile.module.css";
 
 const Profile = () => {
@@ -25,22 +26,20 @@ const Profile = () => {
             <div className={styles.buttons_container}>
                 {!isLoggedIn ? (
                     <>
-                        <Link to="/login" className={styles.button}>
-                            Login
-                        </Link>
-                        <Link to="/register" className={styles.button}>
-                            Register
-                        </Link>
+                        <Button
+                            onClick={() => navigate("/login")}
+                            text="Login"
+                        />
+                        <Button
+                            onClick={() => navigate("/register")}
+                            text="Register"
+                        />
                     </>
                 ) : (
-                    <button onClick={handleLogout} className={styles.button}>
-                        Logout
-                    </button>
+                    <Button onClick={handleLogout} text="Logout" />
                 )}
             </div>
-            <div onClick={() => navigate(-1)} className={styles.button}>
-                Go back
-            </div>
+            <Button onClick={() => navigate(-1)} />
         </section>
     );
 };

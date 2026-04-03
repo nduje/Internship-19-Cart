@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Button from "../../components/Button/Button";
 import styles from "./ManageCategories.module.css";
 
 type Products = {};
@@ -134,15 +135,12 @@ const ManageCategories = () => {
     return (
         <section className={styles.container}>
             <h1 className={styles.title}>Manage Categories</h1>
-            <button
-                type="button"
+            <Button
                 onClick={() => {
                     setIsAddCategory((prev) => !prev);
                 }}
-                className={styles.button}
-            >
-                {isAddCategory ? "Close" : "Add Category"}
-            </button>
+                text={isAddCategory ? "Close" : "Add Category"}
+            />
             {isAddCategory ? (
                 <div className={styles.add_category_container}>
                     <input
@@ -153,13 +151,12 @@ const ManageCategories = () => {
                         className={styles.input}
                     />
 
-                    <button
+                    <Button
                         onClick={handleCreateCategory}
                         disabled={createMutation.isPending}
+                        text={createMutation.isPending ? "Adding..." : "Add"}
                         className={styles.add_button}
-                    >
-                        {createMutation.isPending ? "Adding..." : "Add"}
-                    </button>
+                    />
                 </div>
             ) : (
                 ""
@@ -177,24 +174,17 @@ const ManageCategories = () => {
                               <span className={styles.category_name}>
                                   {category.name}
                               </span>
-                              <button
+                              <Button
                                   onClick={() => handleDelete(category)}
-                                  className={styles.delete_button}
                                   disabled={deleteMutation.isPending}
-                              >
-                                  Delete
-                              </button>
+                                  text="Delete"
+                                  className={styles.delete_button}
+                              />
                           </div>
                       ))
                     : ""}
             </article>
-            <button
-                type="button"
-                onClick={() => navigate(-1)}
-                className={styles.button}
-            >
-                Go Back
-            </button>
+            <Button onClick={() => navigate("/admin")} />
         </section>
     );
 };
