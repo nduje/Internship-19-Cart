@@ -126,7 +126,7 @@ async function main() {
         price: p.price,
         brand: p.brand,
         inStock: index === 4 ? false : true,
-        image: null,
+        image: '/src/assets/images/products/placeholder.svg',
         categoryId: p.catId,
         sizes: {
           set: p.sizes,
