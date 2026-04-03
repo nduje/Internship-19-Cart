@@ -3,6 +3,7 @@ import "./App.css";
 import AdminLayout from "./components/AdminLayout/AdminLayout";
 import Layout from "./components/Layout/Layout";
 import Admin from "./pages/Admin/Admin";
+import EditProduct from "./pages/EditProduct/EditProduct";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import ManageCategories from "./pages/ManageCategories/ManageCategories";
@@ -69,6 +70,14 @@ function App() {
                         </AdminLayout>
                     }
                 />
+                <Route
+                    path="/admin/products/edit/:id"
+                    element={
+                        <AdminLayout>
+                            <EditProduct />
+                        </AdminLayout>
+                    }
+                ></Route>
                 <Route
                     path="/admin/orders"
                     element={

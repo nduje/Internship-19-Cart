@@ -10,10 +10,7 @@ type ProductItem = {
     price: number;
     size: string;
     color: string;
-    product: {
-        name: string;
-        brand: string;
-    };
+    productName: string;
 };
 
 type Order = {
@@ -246,7 +243,6 @@ const ManageOrders = () => {
                                             <thead>
                                                 <tr>
                                                     <th>Product</th>
-                                                    <th>Brand</th>
                                                     <th>Price</th>
                                                     <th>Size</th>
                                                     <th>Color</th>
@@ -256,10 +252,7 @@ const ManageOrders = () => {
                                                 {order.items.map((item) => (
                                                     <tr key={item.id}>
                                                         <td>
-                                                            {item.product.name}
-                                                        </td>
-                                                        <td>
-                                                            {item.product.brand}
+                                                            {item.productName}
                                                         </td>
                                                         <td>${item.price}</td>
                                                         <td>{item.size}</td>

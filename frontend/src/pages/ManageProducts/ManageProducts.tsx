@@ -9,6 +9,7 @@ type Product = {
     name: string;
     brand: string;
     price: number;
+    image: string;
 };
 
 type ProductsResponse = {
@@ -96,6 +97,13 @@ const ManageProducts = () => {
 
                 {productsQuery.data?.data.items.map((product: any) => (
                     <div key={product.id} className={styles.product}>
+                        <div className={styles.product_image_container}>
+                            <img
+                                src={product.image}
+                                className={styles.product_image}
+                            />
+                        </div>
+
                         <div className={styles.main_info}>
                             <h3 className={styles.product_name}>
                                 {product.name}
@@ -143,7 +151,16 @@ const ManageProducts = () => {
                                 {product.inStock ? "In Stock" : "Out of Stock"}
                             </span>
 
-                            <div className={styles.actions}>
+                            <div className={styles.buttons_container}>
+                                <Button
+                                    text="Edit"
+                                    onClick={() =>
+                                        navigate(
+                                            `/admin/products/edit/${product.id}`,
+                                        )
+                                    }
+                                    className={styles.edit_button}
+                                />
                                 <Button
                                     text="Delete"
                                     onClick={() => handleDelete(product)}
@@ -156,9 +173,7 @@ const ManageProducts = () => {
                 ))}
             </article>
 
-            <div className={styles.buttons_container}>
-                <Button onClick={() => navigate("/admin")} />
-            </div>
+            <Button onClick={() => navigate("/admin")} />
         </section>
     );
 };

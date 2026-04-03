@@ -40,6 +40,7 @@
     border-bottom: 2px solid black;
 }
 
+.product_image_container,
 .main_info,
 .variants,
 .status_actions {
@@ -50,6 +51,17 @@
     flex: 1;
 
     gap: 1rem;
+}
+
+.main_info {
+    align-items: flex-start;
+}
+
+.product_image {
+    width: 128px;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    border: 2px solid black;
 }
 
 .product_name {
@@ -103,13 +115,32 @@
     text-transform: uppercase;
 }
 
-.delete_button {
-    background-color: red;
+.buttons_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    gap: 1rem;
+}
+
+.delete_button,
+.edit_button {
     padding: 0.5rem 1rem;
-    border: 2px solid red;
     font-weight: 600;
 }
 
-.delete_button:hover {
+.delete_button {
+    background-color: red;
+    border: 2px solid red;
+}
+
+.edit_button {
+    background-color: steelblue;
+    border: 2px solid steelblue;
+}
+
+.delete_button:hover,
+.edit_button:hover {
     opacity: 70%;
 }
