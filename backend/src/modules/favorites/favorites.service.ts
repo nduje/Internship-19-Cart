@@ -12,7 +12,7 @@ export class FavoritesService {
   async findAll(userId: number) {
     return this.prisma.favorite.findMany({
       where: { userId },
-      include: { product: true },
+      include: { product: { include: { category: true } } },
     });
   }
 
