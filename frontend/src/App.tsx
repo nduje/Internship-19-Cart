@@ -11,6 +11,7 @@ import ManageCategories from "./pages/ManageCategories/ManageCategories";
 import ManageOrders from "./pages/ManageOrders/ManageOrders";
 import ManageProducts from "./pages/ManageProducts/ManageProducts";
 import Profile from "./pages/Profile/Profile";
+import Search from "./pages/Search/Search";
 
 function App() {
     return (
@@ -26,7 +27,14 @@ function App() {
                 />
                 <Route path="/products" />
                 <Route path="/products/:id" />
-                <Route path="/search" />
+                <Route
+                    path="/search"
+                    element={
+                        <Layout showHeader={true} showFooter={true}>
+                            <Search />
+                        </Layout>
+                    }
+                />
                 <Route
                     path="/login"
                     element={

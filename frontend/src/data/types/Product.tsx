@@ -1,3 +1,5 @@
+import type { Category } from "./Category";
+
 export type Product = {
     id?: number | undefined;
     name: string;
@@ -9,4 +11,5 @@ export type Product = {
     sizes: string[];
     colors: string[];
     categoryId: number;
+    category: Category;
 };
