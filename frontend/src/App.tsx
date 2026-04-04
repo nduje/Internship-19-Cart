@@ -5,6 +5,7 @@ import Layout from "./components/Layout/Layout";
 import AddProduct from "./pages/AddProduct/AddProduct";
 import Admin from "./pages/Admin/Admin";
 import EditProduct from "./pages/EditProduct/EditProduct";
+import Favorites from "./pages/Favorites/Favorites";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import ManageCategories from "./pages/ManageCategories/ManageCategories";
@@ -55,7 +56,14 @@ function App() {
             </Route>
 
             <Route>
-                <Route path="/favorites" />
+                <Route
+                    path="/favorites"
+                    element={
+                        <Layout showHeader={true} showFooter={true}>
+                            <Favorites />
+                        </Layout>
+                    }
+                />
                 <Route path="/cart" />
                 <Route path="/checkout" />
                 <Route

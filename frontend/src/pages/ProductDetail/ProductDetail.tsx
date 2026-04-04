@@ -75,6 +75,7 @@ const ProductDetail = () => {
         },
 
         retry: false,
+        refetchOnWindowFocus: false,
     });
 
     const createMutation = useMutation({
