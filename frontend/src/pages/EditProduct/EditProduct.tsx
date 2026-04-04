@@ -2,64 +2,12 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Button from "../../components/Button/Button";
+import { COLOR_OPTIONS } from "../../data/enums/Colors";
+import { SIZE_OPTIONS } from "../../data/enums/Sizes";
+import type { CategoriesResponse } from "../../data/types/CategoryResponse";
+import type { Product } from "../../data/types/Product";
+import type { ProductResponse } from "../../data/types/ProductResponse";
 import styles from "./EditProduct.module.css";
-
-const SIZE_OPTIONS = [
-    "XS",
-    "S",
-    "M",
-    "L",
-    "XL",
-    "EU_40",
-    "EU_41",
-    "EU_42",
-    "EU_43",
-    "EU_44",
-    "EU_45",
-    "EU_46",
-];
-const COLOR_OPTIONS = [
-    "RED",
-    "BLUE",
-    "GREEN",
-    "BLACK",
-    "WHITE",
-    "YELLOW",
-    "ORANGE",
-    "PURPLE",
-    "PINK",
-    "BROWN",
-    "GRAY",
-];
-
-type Product = {
-    name: string;
-    description: string;
-    price: number;
-    brand: string;
-    inStock: boolean;
-    image: string;
-    sizes: string[];
-    colors: string[];
-    categoryId: number;
-};
-
-type ProductResponse = {
-    statusCode: number;
-    message: string;
-    data: Product;
-};
-
-type Category = {
-    id: number;
-    name: string;
-};
-
-type CategoriesResponse = {
-    statusCode: number;
-    message: string;
-    data: Category[];
-};
 
 const EditProduct = () => {
     const navigate = useNavigate();

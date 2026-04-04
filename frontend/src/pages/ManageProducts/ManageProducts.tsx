@@ -2,24 +2,9 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
+import type { Product } from "../../data/types/Product";
+import type { ProductResponse } from "../../data/types/ProductResponse";
 import styles from "./ManageProducts.module.css";
-
-type Product = {
-    id: number;
-    name: string;
-    brand: string;
-    price: number;
-    image: string;
-};
-
-type ProductsResponse = {
-    statusCode: number;
-    message: string;
-    data: {
-        items: Product[];
-        total: number;
-    };
-};
 
 const ManageProducts = () => {
     const navigate = useNavigate();
@@ -29,7 +14,7 @@ const ManageProducts = () => {
         string | undefined
     >(undefined);
 
-    const productsQuery = useQuery<ProductsResponse, Error>({
+    const productsQuery = useQuery<ProductResponse, Error>({
         queryKey: ["products", categoriesFilter],
         queryFn: async () => {
             const token = localStorage.getItem("token");
@@ -80,6 +65,10 @@ const ManageProducts = () => {
     });
 
     const handleDelete = (product: Product) => {
+        if (product.id === undefined) {
+            return;
+        }
+
         if (
             window.confirm(`Are you sure you want to delete ${product.name}?`)
         ) {

@@ -3,19 +3,9 @@ import { jwtDecode } from "jwt-decode";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
+import type { LoginResponse } from "../../data/types/LoginResponse";
+import type { TokenPayload } from "../../data/types/TokenPayload";
 import styles from "./Login.module.css";
-
-type LoginResponse = {
-    statusCode: number;
-    message: string;
-    data: {
-        token: string;
-    };
-};
-
-type TokenPayload = {
-    isAdmin: boolean;
-};
 
 const Login = () => {
     const navigate = useNavigate();

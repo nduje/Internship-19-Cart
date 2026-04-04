@@ -3,40 +3,8 @@ import { useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
+import type { OrdersResponse } from "../../data/types/OrderResponse";
 import styles from "./ManageOrders.module.css";
-
-type ProductItem = {
-    id: number;
-    price: number;
-    size: string;
-    color: string;
-    productName: string;
-};
-
-type Order = {
-    id: number;
-    user: {
-        name: string;
-    };
-    status: string;
-    totalPrice: number;
-    deliveryAddress: {
-        street: string;
-        city: string;
-    };
-    billingAddress: {
-        street: string;
-        city: string;
-    };
-    createdAt: string;
-    items: ProductItem[];
-};
-
-type OrdersResponse = {
-    statusCode: number;
-    message: string;
-    data: Order[];
-};
 
 const ManageOrders = () => {
     const navigate = useNavigate();
