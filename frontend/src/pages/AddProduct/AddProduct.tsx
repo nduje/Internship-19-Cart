@@ -1,17 +1,15 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import { COLOR_OPTIONS } from "../../data/enums/Colors";
 import { SIZE_OPTIONS } from "../../data/enums/Sizes";
 import type { CategoriesResponse } from "../../data/types/CategoryResponse";
 import type { Product } from "../../data/types/Product";
-import type { ProductResponse } from "../../data/types/ProductResponse";
-import styles from "./EditProduct.module.css";
+import styles from "./AddProduct.module.css";
 
-const EditProduct = () => {
+const AddProduct = () => {
     const navigate = useNavigate();
-    const { id } = useParams();
     const queryClient = useQueryClient();
 
     const [form, setForm] = useState<Product>({
@@ -52,51 +50,6 @@ const EditProduct = () => {
         retry: false,
         refetchOnWindowFocus: false,
     });
-
-    const productQuery = useQuery<Product, Error>({
-        queryKey: ["product", id],
-
-        queryFn: async () => {
-            const token = localStorage.getItem("token");
-            const res = await fetch(`http://localhost:3000/products/${id}`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-
-            if (!res.ok) {
-                const err = await res.json();
-                throw new Error(err.message);
-            }
-
-            const data = await res.json();
-            return data.data;
-        },
-
-        enabled: !!id,
-        retry: false,
-        refetchOnWindowFocus: false,
-    });
-
-    useEffect(() => {
-        if (!productQuery.data) return;
-
-        const product = productQuery.data;
-
-        setForm({
-            name: product.name || "",
-            description: product.description || "",
-            price: product.price || 0,
-            brand: product.brand || "",
-            inStock: product.inStock ?? true,
-            image: product.image || "",
-            sizes: product.sizes || [],
-            colors: product.colors || [],
-            categoryId: product.categoryId || 0,
-        });
-    }, [productQuery.data]);
 
     const handleChange = (
         e: React.ChangeEvent<
@@ -152,23 +105,33 @@ const EditProduct = () => {
         }));
     };
 
-    const updateProductMutation = useMutation<ProductResponse, Error, Product>({
-        mutationFn: async (updatedProduct) => {
+    const createMutation = useMutation({
+        mutationFn: async (newProduct: Product) => {
             const token = localStorage.getItem("token");
-            const res = await fetch(`http://localhost:3000/products/${id}`, {
-                method: "PUT",
+
+            const { id, ...productData } = newProduct;
+
+            const payload = {
+                name: productData.name,
+                description: productData.description,
+                price: Number(productData.price),
+                brand: productData.brand,
+                inStock: Boolean(productData.inStock),
+                image:
+                    productData.image ||
+                    "/src/assets/images/products/placeholder.svg",
+                sizes: productData.sizes,
+                colors: productData.colors,
+                categoryId: Number(productData.categoryId),
+            };
+
+            const res = await fetch("http://localhost:3000/products", {
+                method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
                 },
-                body: JSON.stringify({
-                    ...updatedProduct,
-                    sizes: updatedProduct.sizes,
-                    colors: updatedProduct.colors,
-                    image:
-                        updatedProduct.image ||
-                        "/src/assets/images/products/placeholder.svg",
-                }),
+                body: JSON.stringify(payload),
             });
 
             if (!res.ok) {
@@ -178,10 +141,14 @@ const EditProduct = () => {
 
             return res.json();
         },
+
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["products"] });
-            queryClient.invalidateQueries({ queryKey: ["product", id] });
             navigate("/admin/products");
+        },
+
+        onError: (error: Error) => {
+            alert(`Error: ${error.message}`);
         },
     });
 
@@ -190,14 +157,14 @@ const EditProduct = () => {
 
         setLoading(true);
 
-        updateProductMutation.mutate(form, {
+        createMutation.mutate(form, {
             onSettled: () => setLoading(false),
         });
     };
 
     return (
         <div className={styles.container}>
-            <h2 className={styles.title}>Edit Product</h2>
+            <h2 className={styles.title}>Add Product</h2>
 
             <form onSubmit={handleSubmit} className={styles.form}>
                 <div className={styles.input_container}>
@@ -366,7 +333,7 @@ const EditProduct = () => {
                     <Button
                         type="submit"
                         disabled={loading}
-                        text={loading ? "Saving..." : "Save Changes"}
+                        text={loading ? "Adding..." : "Add Product"}
                     />
                     <Button
                         type="button"
@@ -379,4 +346,4 @@ const EditProduct = () => {
     );
 };
 
-export default EditProduct;
+export default AddProduct;

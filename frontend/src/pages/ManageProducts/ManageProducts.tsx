@@ -80,6 +80,11 @@ const ManageProducts = () => {
         <section className={styles.container}>
             <h1 className={styles.title}>Manage Products</h1>
 
+            <Button
+                onClick={() => navigate("/admin/products/add")}
+                text="Add Product"
+            />
+
             <article className={styles.products_container}>
                 {productsQuery.isLoading && <p>Loading...</p>}
                 {productsQuery.isError && <p>{productsQuery.error.message}</p>}

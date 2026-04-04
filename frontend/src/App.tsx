@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import AdminLayout from "./components/AdminLayout/AdminLayout";
 import Layout from "./components/Layout/Layout";
+import AddProduct from "./pages/AddProduct/AddProduct";
 import Admin from "./pages/Admin/Admin";
 import EditProduct from "./pages/EditProduct/EditProduct";
 import Home from "./pages/Home/Home";
@@ -70,6 +71,14 @@ function App() {
                         </AdminLayout>
                     }
                 />
+                <Route
+                    path="/admin/products/add"
+                    element={
+                        <AdminLayout>
+                            <AddProduct />
+                        </AdminLayout>
+                    }
+                ></Route>
                 <Route
                     path="/admin/products/edit/:id"
                     element={

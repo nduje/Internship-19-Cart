@@ -2,23 +2,9 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
+import type { Category } from "../../data/types/Category";
+import type { CategoriesResponse } from "../../data/types/CategoryResponse";
 import styles from "./ManageCategories.module.css";
-
-type Products = {};
-
-type Category = {
-    id: number;
-    name: string;
-    createdAt: string;
-    updatedAt: string;
-    products: Products[];
-};
-
-type CategoriesResponse = {
-    statusCode: number;
-    message: string;
-    data: Category[];
-};
 
 const ManageCategories = () => {
     const navigate = useNavigate();
