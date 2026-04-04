@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
+import Filter from "../../components/Filter/Filter";
 import type { Product } from "../../data/types/Product";
 import type { ProductResponse } from "../../data/types/ProductResponse";
 import styles from "./ManageProducts.module.css";
@@ -10,17 +11,26 @@ const ManageProducts = () => {
     const navigate = useNavigate();
     const queryClient = useQueryClient();
 
-    const [categoriesFilter, setCategoriesFilter] = useState<
-        string | undefined
-    >(undefined);
+    const [search, setSearch] = useState("");
+    const [category, setCategory] = useState<string>("");
+    const [sortBy, setSortBy] = useState("");
+    const [inStock, setInStock] = useState<boolean | undefined>(undefined);
 
     const productsQuery = useQuery<ProductResponse, Error>({
-        queryKey: ["products", categoriesFilter],
+        queryKey: ["products", { search, category, sortBy, inStock }],
         queryFn: async () => {
             const token = localStorage.getItem("token");
-            const query = categoriesFilter
-                ? `?category=${categoriesFilter}`
-                : "";
+
+            const params = new URLSearchParams();
+
+            if (search) params.append("search", search);
+            if (category) params.append("category", String(category));
+            if (sortBy) params.append("sort", sortBy);
+            if (inStock !== undefined) {
+                params.append("inStock", String(inStock));
+            }
+
+            const query = params.toString() ? `?${params.toString()}` : "";
 
             const res = await fetch(`http://localhost:3000/products${query}`, {
                 method: "GET",
@@ -83,6 +93,18 @@ const ManageProducts = () => {
             <Button
                 onClick={() => navigate("/admin/products/add")}
                 text="Add Product"
+            />
+
+            <Filter
+                search={search}
+                setSearch={setSearch}
+                sortBy={sortBy}
+                setSortBy={setSortBy}
+                category={category}
+                setCategory={setCategory}
+                inStock={inStock}
+                setInStock={setInStock}
+                loading={productsQuery.isLoading}
             />
 
             <article className={styles.products_container}>

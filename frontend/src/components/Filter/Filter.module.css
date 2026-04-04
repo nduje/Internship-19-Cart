@@ -1,0 +1,32 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.searchbar,
+.dropdown {
+    box-sizing: border-box;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    background-color: #5a3e36;
+    color: white;
+    letter-spacing: 2px;
+    width: 100%;
+    max-width: 400px;
+    border: 2px solid black;
+    box-shadow:
+        rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+        rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    transition: 0.4s;
+}
+
+.dropdown {
+    cursor: pointer;
+}
+
+.dropdown:hover {
+    opacity: 80%;
+}
