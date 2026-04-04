@@ -14,7 +14,7 @@ const Welcome = ({ onFinish }: { onFinish: () => void }) => {
         <div className={styles.container}>
             <div className={styles.box}>
                 <img
-                    src="src/assets/icons/logo.svg"
+                    src="/src/assets/icons/logo.svg"
                     alt="logo"
                     className={styles.logo}
                 />

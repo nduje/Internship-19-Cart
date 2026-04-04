@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ShopFilter from "../../components/ShopFilter/ShopFilter";
 import type { ProductResponse } from "../../data/types/ProductResponse";
 import styles from "./Search.module.css";
@@ -7,6 +8,7 @@ import styles from "./Search.module.css";
 const Search = () => {
     const [search, setSearch] = useState("");
     const [category, setCategory] = useState<string>("");
+    const navigate = useNavigate();
 
     const productsQuery = useQuery<ProductResponse, Error>({
         queryKey: ["products", { search, category }],
@@ -60,7 +62,11 @@ const Search = () => {
                 {!productsQuery.isLoading &&
                     !productsQuery.isError &&
                     productsQuery.data?.data.items.map((product) => (
-                        <div key={product.id} className={styles.product}>
+                        <div
+                            key={product.id}
+                            onClick={() => navigate(`/products/${product.id}`)}
+                            className={styles.product}
+                        >
                             <img
                                 src={product.image}
                                 alt={product.name}
@@ -82,7 +88,8 @@ const Search = () => {
                                             key={color}
                                             className={styles.color_circle}
                                             style={{
-                                                color: color.toLowerCase(),
+                                                backgroundColor:
+                                                    color.toLowerCase(),
                                             }}
                                         />
                                     ))}

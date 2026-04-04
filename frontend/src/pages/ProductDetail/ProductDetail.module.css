@@ -1,0 +1,129 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+    width: 100%;
+}
+
+.product {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: center;
+
+    width: 100%;
+
+    gap: 0.75rem;
+    padding: 0.5rem;
+}
+
+.product_image_container {
+    background-color: #f2eeee;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.product_image {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    border-radius: 5px;
+}
+
+.product_name {
+    font-size: 1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.product_price {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.colors_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.color_circle {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+}
+
+.active_color_circle {
+    border: 3px solid goldenrod;
+}
+
+.buttons_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    gap: 1rem;
+}
+
+.button_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: fit-content;
+    height: fit-content;
+
+    padding: 0.5rem;
+
+    background-color: #5a3e36;
+    border: 2px solid #5a3e36;
+    border-radius: 60px;
+    box-shadow:
+        rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+        rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    transition: 0.4s;
+}
+
+.inactive {
+    background-color: white;
+}
+
+.icon {
+    width: 15px;
+    height: 15px;
+}
+
+.sizes_container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: center;
+
+    width: 100%;
+    gap: 1rem;
+}
+
+.size_box {
+    padding: 0.25rem 1rem;
+    border: 2px solid #5a3e36;
+    border-radius: 20px;
+}
+
+.active_size_box {
+    background-color: black;
+    color: white;
+}

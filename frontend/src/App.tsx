@@ -10,6 +10,7 @@ import Login from "./pages/Login/Login";
 import ManageCategories from "./pages/ManageCategories/ManageCategories";
 import ManageOrders from "./pages/ManageOrders/ManageOrders";
 import ManageProducts from "./pages/ManageProducts/ManageProducts";
+import ProductDetail from "./pages/ProductDetail/ProductDetail";
 import Profile from "./pages/Profile/Profile";
 import Search from "./pages/Search/Search";
 
@@ -26,7 +27,14 @@ function App() {
                     }
                 />
                 <Route path="/products" />
-                <Route path="/products/:id" />
+                <Route
+                    path="/products/:id"
+                    element={
+                        <Layout showHeader={true} showFooter={true}>
+                            <ProductDetail />
+                        </Layout>
+                    }
+                />
                 <Route
                     path="/search"
                     element={
