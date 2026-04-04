@@ -1,0 +1,60 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 3;
+
+    width: 100vw;
+    height: 100vh;
+
+    background-color: white;
+}
+
+.box {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    height: fit-content;
+}
+
+.logo {
+    width: 32px;
+    height: 32px;
+
+    animation: rotate 1.5s ease forwards;
+}
+
+.text {
+    font-size: 32px;
+    line-height: 1;
+    padding: 0;
+    font-weight: 500;
+    color: #5a3e36;
+
+    opacity: 0;
+    animation: fade 1s ease forwards;
+    animation-delay: 1.5s;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
