@@ -57,8 +57,15 @@ async function main() {
           },
         ],
       },
+      card: {
+        create: {
+          iban: 'HR1210010051863000160',
+          expiration: '12/27',
+          isct: '123',
+        },
+      },
     },
-    include: { addresses: true },
+    include: { addresses: true, card: true },
   });
 
   const catFormal = await prisma.category.create({ data: { name: 'Formal' } });

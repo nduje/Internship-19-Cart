@@ -8,6 +8,7 @@ import {
   ValidateNested,
 } from 'class-validator';
 import { AddressDto } from './address.dto';
+import { CardDto } from './card.dto';
 
 export class UpdateUserDto {
   @ApiProperty({
@@ -48,4 +49,14 @@ export class UpdateUserDto {
   @ValidateNested({ each: true })
   @Type(() => AddressDto)
   addresses?: AddressDto[];
+
+  @ApiProperty({
+    type: CardDto,
+    description: "User's Card",
+    required: false,
+  })
+  @IsOptional()
+  @ValidateNested({ each: true })
+  @Type(() => CardDto)
+  card?: CardDto;
 }

@@ -10,7 +10,7 @@ export class UsersService {
   find(userId: number) {
     return this.prisma.user.findUnique({
       where: { id: userId },
-      include: { addresses: true },
+      include: { addresses: true, card: true },
     });
   }
 
@@ -37,8 +37,26 @@ export class UsersService {
             })),
           },
         }),
+        ...(dto.card && {
+          card: {
+            upsert: {
+              create: {
+                iban: dto.card.iban,
+                expiration: dto.card.expiration,
+                isct: dto.card.isct,
+              },
+              update: {
+                ...(dto.card.iban && { iban: dto.card.iban }),
+                ...(dto.card.expiration && {
+                  expiration: dto.card.expiration,
+                }),
+                ...(dto.card.isct && { isct: dto.card.isct }),
+              },
+            },
+          },
+        }),
       },
-      include: { addresses: true },
+      include: { addresses: true, card: true },
     });
   }
 }
