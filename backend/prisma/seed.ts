@@ -71,69 +71,189 @@ async function main() {
   const catFormal = await prisma.category.create({ data: { name: 'Formal' } });
   const catCasual = await prisma.category.create({ data: { name: 'Casual' } });
   const catSport = await prisma.category.create({ data: { name: 'Sport' } });
+  const catStreetwear = await prisma.category.create({
+    data: { name: 'Streetwear' },
+  });
 
   const productsData = [
     {
-      name: 'Classic Black Suit',
-      price: 300.0,
-      catId: catFormal.id,
-      brand: 'Hugo Boss',
-      sizes: [Size.M, Size.L, Size.XL],
-      colors: [Color.BLACK],
-    },
-    {
-      name: 'Slim Fit Shirt',
-      price: 50.0,
+      name: 'Black Shirt',
+      price: 19.9,
       catId: catFormal.id,
       brand: 'Zara',
-      sizes: [Size.S, Size.M, Size.L],
-      colors: [Color.WHITE, Color.BLUE],
+      sizes: [Size.S, Size.M, Size.L, Size.XL],
+      colors: [Color.BLACK],
+      image: '/src/assets/images/products/black_shirt.svg',
     },
     {
-      name: 'Straight Fit Jeans',
-      price: 80.0,
-      catId: catCasual.id,
-      brand: "Levi's",
-      sizes: [Size.M, Size.L, Size.XL],
-      colors: [Color.BLUE, Color.BLACK],
+      name: 'Black Pants',
+      price: 29.9,
+      catId: catFormal.id,
+      brand: 'Sinsay',
+      sizes: [Size.S, Size.M, Size.L, Size.XL],
+      colors: [Color.BLACK],
+      image: '/src/assets/images/products/black_pants.svg',
     },
     {
-      name: 'Oversized Hoodie',
-      price: 45.0,
-      catId: catCasual.id,
-      brand: 'H&M',
+      name: 'Formal Dress Shoes',
+      price: 49.9,
+      catId: catFormal.id,
+      brand: 'Zara',
+      sizes: [Size.EU_44, Size.EU_45, Size.EU_46],
+      colors: [Color.BLACK],
+      image: '/src/assets/images/products/formal_dress_shoes.svg',
+    },
+    {
+      name: 'Blue Shirt',
+      price: 29.9,
+      catId: catFormal.id,
+      brand: 'Bershka',
       sizes: [Size.M, Size.L, Size.XL],
+      colors: [Color.BLUE, Color.GREEN],
+      image: '/src/assets/images/products/blue_shirt.svg',
+    },
+    {
+      name: 'Hoodie',
+      price: 19.9,
+      catId: catCasual.id,
+      brand: 'Pull&Bear',
+      sizes: [Size.S, Size.M, Size.L, Size.XL],
       colors: [Color.GRAY, Color.BLACK],
+      image: '/src/assets/images/products/hoodie.svg',
     },
     {
-      name: 'Running Sneakers',
-      price: 120.0,
+      name: 'T-Shirt',
+      price: 9.9,
+      catId: catCasual.id,
+      brand: 'Reserved',
+      sizes: [Size.S, Size.M, Size.L, Size.XL],
+      colors: [Color.BLACK],
+      image: '/src/assets/images/products/tshirt.svg',
+    },
+    {
+      name: 'Majica Dugih Rukava',
+      price: 19.9,
+      catId: catCasual.id,
+      brand: 'Zara',
+      sizes: [Size.S, Size.M, Size.L, Size.XL],
+      colors: [Color.BLACK, Color.GREEN],
+      image: '/src/assets/images/products/black_sweater.svg',
+    },
+    {
+      name: 'Sweatpants',
+      price: 19.9,
+      catId: catCasual.id,
+      brand: 'Bershka',
+      sizes: [Size.S, Size.M, Size.L, Size.XL],
+      colors: [Color.GRAY],
+      image: '/src/assets/images/products/sweatpants.svg',
+    },
+    {
+      name: 'Tiger Mexico 66',
+      price: 89.9,
+      catId: catStreetwear.id,
+      brand: 'Onitsuka',
+      sizes: [Size.EU_44, Size.EU_45, Size.EU_46],
+      colors: [Color.YELLOW, Color.RED],
+      image: '/src/assets/images/products/tiger_mexico_66.svg',
+    },
+    {
+      name: 'YOYOGI 2021F - Jeans',
+      price: 299.9,
+      catId: catStreetwear.id,
+      brand: 'Acne Studios',
+      sizes: [Size.S, Size.M, Size.L, Size.XL],
+      colors: [Color.BLUE],
+      image: '/src/assets/images/products/jeans.svg',
+    },
+    {
+      name: 'Spezial',
+      price: 79.9,
+      catId: catStreetwear.id,
+      brand: 'adidas',
+      sizes: [Size.EU_44, Size.EU_45, Size.EU_46],
+      colors: [Color.BLUE, Color.RED],
+      image: '/src/assets/images/products/spezial.svg',
+    },
+    {
+      name: 'Spider-Man Long Sleeve',
+      price: 29.9,
+      catId: catStreetwear.id,
+      brand: 'Bershka',
+      sizes: [Size.S, Size.M, Size.L, Size.XL],
+      colors: [Color.GRAY],
+      image: '/src/assets/images/products/spiderman.svg',
+    },
+    {
+      name: 'Regular Shorts',
+      price: 20.0,
       catId: catSport.id,
       brand: 'Nike',
-      sizes: [Size.EU_42, Size.EU_43, Size.EU_44, Size.EU_45],
-      colors: [Color.WHITE, Color.BLACK],
+      sizes: [Size.S, Size.M, Size.L, Size.XL],
+      colors: [Color.GREEN, Color.RED],
+      image: '/src/assets/images/products/regular_shorts.svg',
+    },
+    {
+      name: 'Regular Jacket',
+      price: 104.95,
+      catId: catSport.id,
+      brand: 'Nike',
+      sizes: [Size.S, Size.M, Size.L, Size.XL],
+      colors: [Color.BLACK],
+      image: '/src/assets/images/products/regular_jacket.svg',
+    },
+    {
+      name: 'Regular Jacket',
+      price: 50.9,
+      catId: catSport.id,
+      brand: 'Puma',
+      sizes: [Size.S, Size.M, Size.L, Size.XL],
+      colors: [Color.BLUE],
+      image: '/src/assets/images/products/regular_jacket_2.svg',
+    },
+    {
+      name: 'Regular Pants',
+      price: 80.95,
+      catId: catSport.id,
+      brand: 'Puma',
+      sizes: [Size.S, Size.M, Size.L, Size.XL],
+      colors: [Color.GRAY],
+      image: '/src/assets/images/products/regular_jacket_2.svg',
+    },
+    {
+      name: 'Running',
+      price: 59.9,
+      catId: catSport.id,
+      brand: 'Nike',
+      sizes: [Size.EU_44, Size.EU_45, Size.EU_46],
+      colors: [Color.WHITE, Color.BLUE],
+      image: '/src/assets/images/products/running.svg',
+    },
+    {
+      name: 'Sport Jersey',
+      price: 59.9,
+      catId: catSport.id,
+      brand: 'Nike',
+      sizes: [Size.S, Size.M, Size.L, Size.XL],
+      colors: [Color.YELLOW],
+      image: '/src/assets/images/products/jersey.svg',
     },
   ];
 
   const createdProducts: Product[] = [];
 
-  const descriptions = [
-    'Bezvremenska elegancija i vrhunski kroj za tvoj savršen formalni izgled.',
-    'Moderna košulja uskog kroja koja savršeno prati liniju tijela za oštar i profesionalan izgled.',
-    'Klasične traperice ravnog kroja koje nude idealan balans između opuštenosti i bezvremenskog stila.',
-    'Mekana i prostrana majica s kapuljačom, stvorena za maksimalnu udobnost i tvoj opušteni street-style.',
-    'Ultra lagane tenisice s naprednom amortizacijom za vrhunske performanse i energiju pri svakom koraku.',
-  ];
+  const description =
+    'Stylish and comfortable clothing designed for everyday wear. Made from high-quality materials, this piece offers a versatile fit and timeless design suitable for any occasion.';
 
   for (const [index, p] of productsData.entries()) {
     const product = await prisma.product.create({
       data: {
         name: p.name,
-        description: descriptions[index],
+        description: description,
         price: p.price,
         brand: p.brand,
         inStock: index === 4 ? false : true,
-        image: '/src/assets/images/products/placeholder.svg',
+        image: p.image || '/src/assets/images/products/placeholder.svg',
         categoryId: p.catId,
         sizes: {
           set: p.sizes,
@@ -147,30 +267,45 @@ async function main() {
     createdProducts.push(product);
   }
 
-  const orderProducts = [
-    createdProducts[0],
-    createdProducts[1],
-    createdProducts[2],
-  ];
-
-  await prisma.order.create({
-    data: {
-      userId: regularUser.id,
-      totalPrice: orderProducts.reduce((sum, p) => sum + p.price, 0),
-      status: OrderStatus.CONFIRMED,
-      deliveryAddressId: regularUser.addresses[0].id,
-      billingAddressId: regularUser.addresses[0].id,
-      items: {
-        create: orderProducts.map((p) => ({
-          productId: p.id,
-          productName: p.name,
-          price: p.price,
-          size: p.sizes[0],
-          color: p.colors[0],
-        })),
+  const createOrder = async (
+    userId: number,
+    products: typeof createdProducts,
+    status: OrderStatus,
+    addressId: number,
+  ) => {
+    await prisma.order.create({
+      data: {
+        userId,
+        totalPrice: products.reduce((sum, p) => sum + p.price, 0),
+        status,
+        deliveryAddressId: addressId,
+        billingAddressId: addressId,
+        items: {
+          create: products.map((p) => ({
+            productId: p.id,
+            productName: p.name,
+            price: p.price,
+            size: p.sizes[0],
+            color: p.colors[0],
+          })),
+        },
       },
-    },
-  });
+    });
+  };
+
+  await createOrder(
+    regularUser.id,
+    createdProducts.slice(0, 3),
+    OrderStatus.CONFIRMED,
+    regularUser.addresses[0].id,
+  );
+
+  await createOrder(
+    regularUser.id,
+    createdProducts.slice(5, 10),
+    OrderStatus.PENDING,
+    regularUser.addresses[0].id,
+  );
 }
 
 main()
