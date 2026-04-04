@@ -73,8 +73,21 @@ const Search = () => {
                                 {product.category.name}
                             </p>
                             <p className={styles.product_price}>
-                                {product.price}€
+                                {product.price.toFixed(2)}€
                             </p>
+                            {product.colors.length > 1 && (
+                                <div className={styles.colors_container}>
+                                    {product.colors.map((color) => (
+                                        <span
+                                            key={color}
+                                            className={styles.color_circle}
+                                            style={{
+                                                color: color.toLowerCase(),
+                                            }}
+                                        />
+                                    ))}
+                                </div>
+                            )}
                         </div>
                     ))}
             </article>

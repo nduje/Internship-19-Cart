@@ -195,7 +195,7 @@ const ManageOrders = () => {
                                         </p>
                                         <p className={styles.detail}>
                                             <strong>Total Price:</strong> $
-                                            {order.totalPrice}
+                                            {order.totalPrice.toFixed(2)}
                                         </p>
                                         <p className={styles.detail}>
                                             <strong>Ordered At:</strong>{" "}
@@ -222,7 +222,12 @@ const ManageOrders = () => {
                                                         <td>
                                                             {item.productName}
                                                         </td>
-                                                        <td>${item.price}</td>
+                                                        <td>
+                                                            $
+                                                            {item.price.toFixed(
+                                                                2,
+                                                            )}
+                                                        </td>
                                                         <td>{item.size}</td>
                                                         <td>{item.color}</td>
                                                     </tr>

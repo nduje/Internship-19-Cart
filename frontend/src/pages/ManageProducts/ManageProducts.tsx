@@ -155,7 +155,7 @@ const ManageProducts = () => {
 
                         <div className={styles.status_actions}>
                             <span className={styles.price}>
-                                {product.price}€
+                                {product.price.toFixed(2)}€
                             </span>
                             <span
                                 className={
