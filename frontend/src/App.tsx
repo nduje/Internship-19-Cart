@@ -45,7 +45,7 @@ function App() {
                 <Route
                     path="/profile"
                     element={
-                        <Layout showHeader={false} showFooter={true}>
+                        <Layout showHeader={true} showFooter={true}>
                             <Profile />
                         </Layout>
                     }
