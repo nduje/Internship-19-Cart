@@ -1,6 +1,6 @@
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import ShopFilter from "../../components/ShopFilter/ShopFilter";
 import type { FavoriteResponse } from "../../data/types/FavoriteResponse";
 import type { ProductResponse } from "../../data/types/ProductResponse";
@@ -10,8 +10,13 @@ import heartIcon from "/src/assets/icons/indicator.svg";
 const PRODUCTS_PER_PAGE = 6;
 
 const Search = () => {
-    const [search, setSearch] = useState("");
-    const [category, setCategory] = useState<string>("");
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [search, setSearch] = useState(
+        () => searchParams.get("search") || "",
+    );
+    const [category, setCategory] = useState<string>(
+        () => searchParams.get("category") || "",
+    );
 
     const navigate = useNavigate();
     const lastProductRef = useRef<HTMLDivElement>(null);
@@ -114,6 +119,15 @@ const Search = () => {
         productsQuery.hasNextPage,
         productsQuery.fetchNextPage,
     ]);
+
+    useEffect(() => {
+        const params: Record<string, string> = {};
+
+        if (search) params.search = search;
+        if (category) params.category = category;
+
+        setSearchParams(params);
+    }, [search, category]);
 
     return (
         <section className={styles.container}>
