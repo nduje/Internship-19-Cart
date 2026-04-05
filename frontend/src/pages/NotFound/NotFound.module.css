@@ -1,0 +1,22 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 2rem;
+    padding: 2rem;
+
+    flex: 1;
+}
+
+.message {
+    font-size: 2rem;
+    font-size: 400;
+    text-align: center;
+    color: black;
+}
+
+.highlight {
+    color: #5a3e36;
+}

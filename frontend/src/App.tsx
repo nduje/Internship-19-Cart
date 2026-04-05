@@ -15,6 +15,7 @@ import Login from "./pages/Login/Login";
 import ManageCategories from "./pages/ManageCategories/ManageCategories";
 import ManageOrders from "./pages/ManageOrders/ManageOrders";
 import ManageProducts from "./pages/ManageProducts/ManageProducts";
+import NotFound from "./pages/NotFound/NotFound";
 import ProductDetail from "./pages/ProductDetail/ProductDetail";
 import Profile from "./pages/Profile/Profile";
 import Register from "./pages/Register/Register";
@@ -178,7 +179,14 @@ function App() {
                 />
             </Route>
 
-            <Route path="*" />
+            <Route
+                path="*"
+                element={
+                    <Layout showHeader={true} showFooter={true}>
+                        <NotFound />
+                    </Layout>
+                }
+            />
         </Routes>
     );
 }
