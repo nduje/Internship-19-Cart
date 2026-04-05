@@ -7,8 +7,11 @@ const Cart = () => {
     const [cart, setCart] = useState<CartItem[]>([]);
     const navigate = useNavigate();
 
+    const userId = localStorage.getItem("userId");
+    const cartKey = `cart_${userId}`;
+
     useEffect(() => {
-        const stored = localStorage.getItem("cart");
+        const stored = localStorage.getItem(cartKey);
         setCart(stored ? JSON.parse(stored) : []);
     }, []);
 
@@ -85,9 +88,11 @@ const Cart = () => {
                 </div>
             )}
 
-            <button onClick={() => navigate(-1)} className={styles.button}>
-                Proceed to Checkout
-            </button>
+            {cart.length > 0 && (
+                <button onClick={() => navigate(-1)} className={styles.button}>
+                    Proceed to Checkout
+                </button>
+            )}
         </section>
     );
 };

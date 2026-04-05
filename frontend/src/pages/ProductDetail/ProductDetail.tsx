@@ -18,6 +18,9 @@ const ProductDetail = () => {
     const [selectedSize, setSelectedSize] = useState<string | null>(null);
     const [isInCart, setIsInCart] = useState(false);
 
+    const userId = localStorage.getItem("userId");
+    const cartKey = `cart_${userId}`;
+
     const productQuery = useQuery<SingleProductResponse, Error>({
         queryKey: ["products", id],
         queryFn: async () => {
@@ -50,7 +53,7 @@ const ProductDetail = () => {
             return;
         }
 
-        const cart = localStorage.getItem("cart");
+        const cart = localStorage.getItem(cartKey);
         if (!cart) {
             setIsInCart(false);
             return;
@@ -181,7 +184,7 @@ const ProductDetail = () => {
     const handleCartToggle = () => {
         if (!product || !selectedColor || !selectedSize) return;
 
-        const cart = localStorage.getItem("cart");
+        const cart = localStorage.getItem(cartKey);
         let cartArray = cart ? JSON.parse(cart) : [];
 
         if (isInCart) {
@@ -203,7 +206,7 @@ const ProductDetail = () => {
             });
         }
 
-        localStorage.setItem("cart", JSON.stringify(cartArray));
+        localStorage.setItem(cartKey, JSON.stringify(cartArray));
 
         setIsInCart(!isInCart);
     };

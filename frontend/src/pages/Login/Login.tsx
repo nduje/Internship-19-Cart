@@ -39,6 +39,9 @@ const Login = () => {
                 localStorage.setItem("token", token);
 
                 const payload = jwtDecode<TokenPayload>(token);
+
+                localStorage.setItem("userId", payload.id);
+
                 if (payload.isAdmin) {
                     navigate("/admin");
                 } else {
