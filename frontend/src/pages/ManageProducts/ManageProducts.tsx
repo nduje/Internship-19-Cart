@@ -1,4 +1,8 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+    useInfiniteQuery,
+    useMutation,
+    useQueryClient,
+} from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
@@ -17,20 +21,14 @@ const ManageProducts = () => {
     const [category, setCategory] = useState<string>("");
     const [sortBy, setSortBy] = useState("");
     const [inStock, setInStock] = useState<boolean | undefined>(undefined);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [products, setProducts] = useState<Product[]>([]);
 
     const lastProductRef = useRef<HTMLDivElement>(null);
     const observer = useRef<IntersectionObserver | null>(null);
 
-    const productsQuery = useQuery<ProductResponse, Error>({
-        queryKey: [
-            "products",
-            { search, category, sortBy, inStock, page: currentPage },
-        ],
-        queryFn: async () => {
+    const productsQuery = useInfiniteQuery<ProductResponse, Error>({
+        queryKey: ["products", { search, category, sortBy, inStock }],
+        queryFn: async ({ pageParam = 1 }) => {
             const token = localStorage.getItem("token");
-
             const params = new URLSearchParams();
 
             if (search) params.append("search", search);
@@ -39,18 +37,19 @@ const ManageProducts = () => {
             if (inStock !== undefined)
                 params.append("inStock", String(inStock));
 
-            params.append("page", String(currentPage));
+            params.append("page", String(pageParam));
             params.append("limit", String(PRODUCTS_PER_PAGE));
 
-            const query = params.toString() ? `?${params.toString()}` : "";
-
-            const res = await fetch(`http://localhost:3000/products${query}`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
+            const res = await fetch(
+                `http://localhost:3000/products?${params.toString()}`,
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
                 },
-            });
+            );
 
             if (!res.ok) {
                 const err = await res.json();
@@ -58,46 +57,45 @@ const ManageProducts = () => {
             }
             return res.json();
         },
-
+        initialPageParam: 1,
+        getNextPageParam: (lastPage) => {
+            const { page, total, limit } = lastPage.data;
+            return page * limit < total ? page + 1 : undefined;
+        },
         retry: false,
         refetchOnWindowFocus: false,
     });
 
-    useEffect(() => {
-        if (productsQuery.data?.data.items) {
-            setProducts((prev) =>
-                currentPage === 1
-                    ? productsQuery.data!.data.items
-                    : [...prev, ...productsQuery.data!.data.items],
-            );
-        }
-    }, [productsQuery.data]);
+    const products =
+        productsQuery.data?.pages.flatMap((page) => page.data.items) ?? [];
 
     useEffect(() => {
-        setProducts([]);
-        setCurrentPage(1);
-    }, [search, category, sortBy, inStock]);
+        if (
+            productsQuery.isLoading ||
+            productsQuery.isFetchingNextPage ||
+            !productsQuery.hasNextPage
+        )
+            return;
 
-    useEffect(() => {
-        if (productsQuery.isLoading) return;
         if (observer.current) observer.current.disconnect();
 
         observer.current = new IntersectionObserver((entries) => {
-            if (
-                entries[0].isIntersecting &&
-                productsQuery.data &&
-                products.length < productsQuery.data.data.total &&
-                productsQuery.data.data.items.length > 0
-            ) {
-                setCurrentPage((prev) => prev + 1);
+            if (entries[0].isIntersecting) {
+                productsQuery.fetchNextPage();
             }
         });
 
-        if (lastProductRef.current)
+        if (lastProductRef.current) {
             observer.current.observe(lastProductRef.current);
+        }
 
         return () => observer.current?.disconnect();
-    }, [productsQuery.isLoading, productsQuery.data, products]);
+    }, [
+        productsQuery.isLoading,
+        productsQuery.isFetchingNextPage,
+        productsQuery.hasNextPage,
+        productsQuery.fetchNextPage,
+    ]);
 
     const deleteMutation = useMutation({
         mutationFn: async (id: number) => {
@@ -157,9 +155,7 @@ const ManageProducts = () => {
             />
 
             <article className={styles.products_container}>
-                {productsQuery.isLoading && currentPage === 1 && (
-                    <p>Loading...</p>
-                )}
+                {productsQuery.isLoading && <p>Loading...</p>}
                 {productsQuery.isError && <p>{productsQuery.error.message}</p>}
 
                 {products.map((product) => (
@@ -167,6 +163,7 @@ const ManageProducts = () => {
                         <div className={styles.product_image_container}>
                             <img
                                 src={product.image}
+                                alt={product.name}
                                 className={styles.product_image}
                             />
                         </div>
@@ -241,9 +238,7 @@ const ManageProducts = () => {
 
                 <div ref={lastProductRef} style={{ height: "10px" }} />
 
-                {productsQuery.isFetching && currentPage > 1 && (
-                    <p>Loading more...</p>
-                )}
+                {productsQuery.isFetchingNextPage && <p>Loading more...</p>}
             </article>
 
             <Button onClick={() => navigate("/admin")} />

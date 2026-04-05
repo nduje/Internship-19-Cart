@@ -6,5 +6,7 @@ export type ProductResponse = {
     data: {
         items: Product[];
         total: number;
+        page: number;
+        limit: number;
     };
 };

@@ -16,6 +16,7 @@ const ProductDetail = () => {
     const [isFavorite, setIsFavorite] = useState<boolean | null>(null);
     const [selectedColor, setSelectedColor] = useState<string | null>(null);
     const [selectedSize, setSelectedSize] = useState<string | null>(null);
+    const [isInCart, setIsInCart] = useState(false);
 
     const productQuery = useQuery<SingleProductResponse, Error>({
         queryKey: ["products", id],
@@ -42,6 +43,30 @@ const ProductDetail = () => {
     });
 
     const product = productQuery.data?.data;
+
+    useEffect(() => {
+        if (!product || !selectedColor || !selectedSize) {
+            setIsInCart(false);
+            return;
+        }
+
+        const cart = localStorage.getItem("cart");
+        if (!cart) {
+            setIsInCart(false);
+            return;
+        }
+
+        const cartArray = JSON.parse(cart);
+
+        const exists = cartArray.some(
+            (item: any) =>
+                item.productId === product.id &&
+                item.size === selectedSize &&
+                item.color === selectedColor,
+        );
+
+        setIsInCart(exists);
+    }, [product, selectedColor, selectedSize]);
 
     useEffect(() => {
         if (product && product.colors.length > 0) {
@@ -153,6 +178,36 @@ const ProductDetail = () => {
         }
     }, [product, favoritesQuery.data]);
 
+    const handleCartToggle = () => {
+        if (!product || !selectedColor || !selectedSize) return;
+
+        const cart = localStorage.getItem("cart");
+        let cartArray = cart ? JSON.parse(cart) : [];
+
+        if (isInCart) {
+            cartArray = cartArray.filter(
+                (item: any) =>
+                    !(
+                        item.productId === product.id &&
+                        item.size === selectedSize &&
+                        item.color === selectedColor
+                    ),
+            );
+        } else {
+            cartArray.push({
+                productId: product.id,
+                name: product.name,
+                size: selectedSize,
+                color: selectedColor,
+                price: product.price,
+            });
+        }
+
+        localStorage.setItem("cart", JSON.stringify(cartArray));
+
+        setIsInCart(!isInCart);
+    };
+
     return (
         <section className={styles.container}>
             {productQuery.isLoading && <p>Loading product...</p>}
@@ -217,7 +272,10 @@ const ProductDetail = () => {
                 </div>
             )}
             <div className={styles.buttons_container}>
-                <Button onClick={() => {}} text="Add to cart" />
+                <Button
+                    onClick={handleCartToggle}
+                    text={isInCart ? "Remove from cart" : "Add to cart"}
+                />
                 <div
                     className={`${styles.button_container} ${isFavorite ? "" : styles.inactive}`}
                     onClick={handleFavoriteToggle}

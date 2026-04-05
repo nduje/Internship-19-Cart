@@ -17,3 +17,8 @@
 .button:hover {
     opacity: 80%;
 }
+
+.button:active,
+.button:focus {
+    opacity: 100%;
+}

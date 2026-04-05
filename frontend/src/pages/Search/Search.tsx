@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ShopFilter from "../../components/ShopFilter/ShopFilter";
@@ -12,37 +12,32 @@ const PRODUCTS_PER_PAGE = 6;
 const Search = () => {
     const [search, setSearch] = useState("");
     const [category, setCategory] = useState<string>("");
-    const [currentPage, setCurrentPage] = useState(1);
-    const [products, setProducts] = useState<ProductResponse["data"]["items"]>(
-        [],
-    );
 
     const navigate = useNavigate();
     const lastProductRef = useRef<HTMLDivElement>(null);
     const observer = useRef<IntersectionObserver | null>(null);
 
-    const productsQuery = useQuery<ProductResponse, Error>({
-        queryKey: ["products", { search, category, page: currentPage }],
-        queryFn: async () => {
+    const productsQuery = useInfiniteQuery<ProductResponse, Error>({
+        queryKey: ["products", { search, category }],
+        queryFn: async ({ pageParam = 1 }) => {
             const token = localStorage.getItem("token");
-
             const params = new URLSearchParams();
 
             if (search) params.append("search", search);
             if (category) params.append("category", category);
-
-            params.append("page", String(currentPage));
+            params.append("page", String(pageParam));
             params.append("limit", String(PRODUCTS_PER_PAGE));
 
-            const query = params.toString() ? `?${params.toString()}` : "";
-
-            const res = await fetch(`http://localhost:3000/products${query}`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
+            const res = await fetch(
+                `http://localhost:3000/products?${params.toString()}`,
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
                 },
-            });
+            );
 
             if (!res.ok) {
                 const err = await res.json();
@@ -50,7 +45,11 @@ const Search = () => {
             }
             return res.json();
         },
-
+        initialPageParam: 1,
+        getNextPageParam: (lastPage) => {
+            const { page, total, limit } = lastPage.data;
+            return page * limit < total ? page + 1 : undefined;
+        },
         retry: false,
         refetchOnWindowFocus: false,
     });
@@ -75,45 +74,32 @@ const Search = () => {
 
             return res.json();
         },
-
         retry: false,
         refetchOnWindowFocus: false,
     });
+
+    const products =
+        productsQuery.data?.pages.flatMap((page) => page.data.items) ?? [];
 
     const favorites = Array.isArray(favoritesQuery.data?.data)
         ? favoritesQuery.data.data
         : [];
 
-    const favoriteProducts = favorites.map((fav) => fav.product);
-    const favoriteIds = new Set(favoriteProducts.map((p) => p.id));
+    const favoriteIds = new Set(favorites.map((fav: any) => fav.product.id));
 
     useEffect(() => {
-        if (productsQuery.data?.data.items) {
-            setProducts((prev) =>
-                currentPage === 1
-                    ? productsQuery.data!.data.items
-                    : [...prev, ...productsQuery.data!.data.items],
-            );
-        }
-    }, [productsQuery.data]);
+        if (
+            productsQuery.isLoading ||
+            productsQuery.isFetchingNextPage ||
+            !productsQuery.hasNextPage
+        )
+            return;
 
-    useEffect(() => {
-        setProducts([]);
-        setCurrentPage(1);
-    }, [search, category]);
-
-    useEffect(() => {
-        if (productsQuery.isLoading) return;
         if (observer.current) observer.current.disconnect();
 
         observer.current = new IntersectionObserver((entries) => {
-            if (
-                entries[0].isIntersecting &&
-                productsQuery.data &&
-                products.length < productsQuery.data.data.total &&
-                productsQuery.data.data.items.length > 0
-            ) {
-                setCurrentPage((prev) => prev + 1);
+            if (entries[0].isIntersecting) {
+                productsQuery.fetchNextPage();
             }
         });
 
@@ -122,7 +108,12 @@ const Search = () => {
         }
 
         return () => observer.current?.disconnect();
-    }, [productsQuery.isLoading, productsQuery.data, products]);
+    }, [
+        productsQuery.isLoading,
+        productsQuery.isFetchingNextPage,
+        productsQuery.hasNextPage,
+        productsQuery.fetchNextPage,
+    ]);
 
     return (
         <section className={styles.container}>
@@ -134,9 +125,7 @@ const Search = () => {
                 loading={productsQuery.isLoading}
             />
             <article className={styles.products}>
-                {productsQuery.isLoading && currentPage === 1 && (
-                    <p>Loading products...</p>
-                )}
+                {productsQuery.isLoading && <p>Loading products...</p>}
                 {productsQuery.isError && <p>Failed to load products.</p>}
                 {!productsQuery.isLoading &&
                     !productsQuery.isError &&
@@ -194,9 +183,7 @@ const Search = () => {
 
                 <div ref={lastProductRef} style={{ height: "10px" }} />
 
-                {productsQuery.isFetching && currentPage > 1 && (
-                    <p>Loading more...</p>
-                )}
+                {productsQuery.isFetchingNextPage && <p>Loading more...</p>}
             </article>
         </section>
     );
