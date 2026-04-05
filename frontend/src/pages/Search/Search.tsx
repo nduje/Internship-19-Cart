@@ -51,7 +51,6 @@ const Search = () => {
             return res.json();
         },
 
-        placeholderData: (previousData) => previousData,
         retry: false,
         refetchOnWindowFocus: false,
     });
@@ -143,7 +142,7 @@ const Search = () => {
                     !productsQuery.isError &&
                     products.length === 0 && <p>No products found.</p>}
 
-                {products.map((product, index) => {
+                {products.map((product) => {
                     const isFavorite = favoriteIds.has(product.id);
 
                     return (
