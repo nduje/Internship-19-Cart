@@ -146,10 +146,12 @@ The following users are pre-created for testing authentication and authorization
 ### Backend Setup
 
 2. Navigate to the backend folder (`cd backend`)
-3. Build and start all services (`docker compose up -d --build`)
+3. Install dependencies (`npm install`)
+4. Generate Prisma client (`npx prisma generate`)
+5. Build and start all services (`docker compose up -d --build`)
 
 ### Frontend Setup
 
-4. Navigate to the frontend folder (`cd frontend`)
-5. Install frontend dependencies (`npm install`)
-6. Run the frontend application (`npm run dev`)
+6. Navigate to the frontend folder (`cd frontend`)
+7. Install frontend dependencies (`npm install`)
+8. Run the frontend application (`npm run dev`)
