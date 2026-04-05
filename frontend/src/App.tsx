@@ -5,6 +5,7 @@ import Layout from "./components/Layout/Layout";
 import AddProduct from "./pages/AddProduct/AddProduct";
 import Admin from "./pages/Admin/Admin";
 import Cart from "./pages/Cart/Cart";
+import Checkout from "./pages/Checkout/Checkout";
 import EditProduct from "./pages/EditProduct/EditProduct";
 import EditProfile from "./pages/EditProfile/EditProfile";
 import Favorites from "./pages/Favorites/Favorites";
@@ -82,7 +83,14 @@ function App() {
                         </Layout>
                     }
                 />
-                <Route path="/checkout" />
+                <Route
+                    path="/checkout"
+                    element={
+                        <Layout showHeader={false} showFooter={true}>
+                            <Checkout />
+                        </Layout>
+                    }
+                />
                 <Route
                     path="/profile"
                     element={

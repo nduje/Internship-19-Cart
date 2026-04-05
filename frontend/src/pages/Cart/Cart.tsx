@@ -89,7 +89,10 @@ const Cart = () => {
             )}
 
             {cart.length > 0 && (
-                <button onClick={() => navigate(-1)} className={styles.button}>
+                <button
+                    onClick={() => navigate("/checkout")}
+                    className={styles.button}
+                >
                     Proceed to Checkout
                 </button>
             )}
