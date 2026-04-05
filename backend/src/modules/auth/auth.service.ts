@@ -53,6 +53,13 @@ export class AuthService {
             },
           ],
         },
+        card: {
+          create: {
+            iban: '',
+            expiration: '',
+            isct: '',
+          },
+        },
       },
     });
 

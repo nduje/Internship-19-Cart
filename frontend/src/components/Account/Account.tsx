@@ -68,9 +68,11 @@ const Account = () => {
                             <strong className={styles.highlight}>
                                 Mjesto:{" "}
                             </strong>
-                            {deliveryAddress?.city},{" "}
-                            {deliveryAddress?.postalCode},{" "}
-                            {deliveryAddress?.country}
+                            {deliveryAddress?.city &&
+                            deliveryAddress?.postalCode &&
+                            deliveryAddress?.country
+                                ? `${deliveryAddress.city}, ${deliveryAddress.postalCode}, ${deliveryAddress.country}`
+                                : ""}
                         </p>
                     </div>
                 </div>

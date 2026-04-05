@@ -13,6 +13,7 @@ import ManageOrders from "./pages/ManageOrders/ManageOrders";
 import ManageProducts from "./pages/ManageProducts/ManageProducts";
 import ProductDetail from "./pages/ProductDetail/ProductDetail";
 import Profile from "./pages/Profile/Profile";
+import Register from "./pages/Register/Register";
 import Search from "./pages/Search/Search";
 
 function App() {
@@ -52,7 +53,14 @@ function App() {
                         </Layout>
                     }
                 />
-                <Route path="/register" />
+                <Route
+                    path="/register"
+                    element={
+                        <Layout showHeader={false} showFooter={true}>
+                            <Register />
+                        </Layout>
+                    }
+                />
             </Route>
 
             <Route>
