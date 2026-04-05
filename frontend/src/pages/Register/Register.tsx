@@ -47,7 +47,9 @@ const Register = () => {
                 if (payload.isAdmin) {
                     navigate("/admin");
                 } else {
-                    navigate("/profile");
+                    navigate("/profile/edit", {
+                        state: { fromRegister: true },
+                    });
                 }
             }
         },

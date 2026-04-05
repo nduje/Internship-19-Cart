@@ -5,6 +5,7 @@ import Layout from "./components/Layout/Layout";
 import AddProduct from "./pages/AddProduct/AddProduct";
 import Admin from "./pages/Admin/Admin";
 import EditProduct from "./pages/EditProduct/EditProduct";
+import EditProfile from "./pages/EditProfile/EditProfile";
 import Favorites from "./pages/Favorites/Favorites";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
@@ -82,8 +83,14 @@ function App() {
                         </Layout>
                     }
                 />
-                <Route path="/profile/orders" />
-                <Route path="/profile/addresses" />
+                <Route
+                    path="/profile/edit"
+                    element={
+                        <Layout showHeader={false} showFooter={true}>
+                            <EditProfile />
+                        </Layout>
+                    }
+                />
             </Route>
 
             <Route>

@@ -11,5 +11,5 @@ export type Product = {
     sizes: string[];
     colors: string[];
     categoryId: number;
-    category: Category;
+    category?: Category;
 };
