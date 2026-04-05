@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { hash } from 'bcrypt';
 import { PrismaService } from 'src/config/prisma.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 
@@ -18,11 +17,6 @@ export class UsersService {
     return this.prisma.user.update({
       where: { id: userId },
       data: {
-        ...(dto.name && { name: dto.name }),
-        ...(dto.email && { email: dto.email }),
-        ...(dto.password && {
-          password: await hash(dto.password, 10),
-        }),
         ...(dto.addresses && {
           addresses: {
             update: dto.addresses.map((addr) => ({
