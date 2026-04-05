@@ -191,20 +191,27 @@ const ProductDetail = () => {
                     )}
 
                     {product.sizes.length > 0 && (
-                        <div className={styles.sizes_container}>
-                            {product.sizes.map((size) => {
-                                const isSelected = selectedSize === size;
+                        <div className={styles.sizes_wrapper}>
+                            <label className={styles.sizes_text}>
+                                Choose Size:
+                            </label>
+                            <div className={styles.sizes_container}>
+                                {product.sizes.map((size) => {
+                                    const isSelected = selectedSize === size;
 
-                                return (
-                                    <span
-                                        key={size}
-                                        className={`${styles.size_box} ${isSelected ? styles.active_size_box : ""}`}
-                                        onClick={() => setSelectedSize(size)}
-                                    >
-                                        {size}
-                                    </span>
-                                );
-                            })}
+                                    return (
+                                        <span
+                                            key={size}
+                                            className={`${styles.size_box} ${isSelected ? styles.active_size_box : ""}`}
+                                            onClick={() =>
+                                                setSelectedSize(size)
+                                            }
+                                        >
+                                            {size}
+                                        </span>
+                                    );
+                                })}
+                            </div>
                         </div>
                     )}
                 </div>

@@ -108,6 +108,22 @@
     height: 15px;
 }
 
+.sizes_wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+
+    width: 100%;
+    gap: 1rem;
+}
+
+.sizes_text {
+    color: #686868;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
 .sizes_container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);

@@ -15,6 +15,7 @@
 }
 
 .product {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -26,6 +27,23 @@
 
     background-color: #f2eeee;
     border-radius: 5px;
+}
+
+.favorite_icon_container {
+    position: absolute;
+
+    top: 0.5rem;
+    right: 0.5rem;
+
+    z-index: 10;
+
+    width: fit-content;
+    height: fit-content;
+}
+
+.favorite_icon {
+    width: 24px;
+    height: 24px;
 }
 
 .product_image {
