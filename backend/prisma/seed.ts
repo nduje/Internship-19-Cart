@@ -306,6 +306,14 @@ async function main() {
     OrderStatus.PENDING,
     regularUser.addresses[0].id,
   );
+
+  await prisma.favorite.createMany({
+    data: [
+      { userId: regularUser.id, productId: createdProducts[0].id },
+      { userId: regularUser.id, productId: createdProducts[1].id },
+      { userId: regularUser.id, productId: createdProducts[4].id },
+    ],
+  });
 }
 
 main()
