@@ -63,7 +63,7 @@ const Favorites = () => {
                                 {product.name}
                             </h3>
                             <p className={styles.product_category}>
-                                {product.category.name}
+                                {product.category?.name}
                             </p>
                             <p className={styles.product_price}>
                                 {product.price.toFixed(2)}€

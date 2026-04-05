@@ -5,5 +5,6 @@ export type ProductResponse = {
     message: string;
     data: {
         items: Product[];
+        total: number;
     };
 };

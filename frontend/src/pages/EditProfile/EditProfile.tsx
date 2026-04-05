@@ -350,7 +350,7 @@ const EditProfile = () => {
                         disabled={loading}
                         text={loading ? "Saving..." : "Save"}
                     />
-                    {fromRegister && (
+                    {!fromRegister && (
                         <Button
                             type="button"
                             onClick={() => navigate(-1)}
