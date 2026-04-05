@@ -38,42 +38,53 @@ const Favorites = () => {
 
     return (
         <section className={styles.container}>
+            {favoritesQuery.isLoading && <p>Loading products...</p>}
+            {favoritesQuery.isError && <p>Failed to load products.</p>}
             {!favoritesQuery.isLoading &&
                 !favoritesQuery.isError &&
-                products?.map((product) => (
-                    <div
-                        key={product.id}
-                        onClick={() => navigate(`/products/${product.id}`)}
-                        className={styles.product}
-                    >
-                        <img
-                            src={product.image}
-                            alt={product.name}
-                            className={styles.product_image}
-                        />
-                        <h3 className={styles.product_name}>{product.name}</h3>
-                        <p className={styles.product_category}>
-                            {product.category.name}
-                        </p>
-                        <p className={styles.product_price}>
-                            {product.price.toFixed(2)}€
-                        </p>
-                        {product.colors.length > 1 && (
-                            <div className={styles.colors_container}>
-                                {product.colors.map((color) => (
-                                    <span
-                                        key={color}
-                                        className={styles.color_circle}
-                                        style={{
-                                            backgroundColor:
-                                                color.toLowerCase(),
-                                        }}
-                                    />
-                                ))}
-                            </div>
-                        )}
-                    </div>
-                ))}
+                products?.length === 0 && <p>No products found.</p>}
+
+            <article className={styles.products}>
+                {" "}
+                {!favoritesQuery.isLoading &&
+                    !favoritesQuery.isError &&
+                    products?.map((product) => (
+                        <div
+                            key={product.id}
+                            onClick={() => navigate(`/products/${product.id}`)}
+                            className={styles.product}
+                        >
+                            <img
+                                src={product.image}
+                                alt={product.name}
+                                className={styles.product_image}
+                            />
+                            <h3 className={styles.product_name}>
+                                {product.name}
+                            </h3>
+                            <p className={styles.product_category}>
+                                {product.category.name}
+                            </p>
+                            <p className={styles.product_price}>
+                                {product.price.toFixed(2)}€
+                            </p>
+                            {product.colors.length > 1 && (
+                                <div className={styles.colors_container}>
+                                    {product.colors.map((color) => (
+                                        <span
+                                            key={color}
+                                            className={styles.color_circle}
+                                            style={{
+                                                backgroundColor:
+                                                    color.toLowerCase(),
+                                            }}
+                                        />
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                    ))}
+            </article>
         </section>
     );
 };

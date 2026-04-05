@@ -18,12 +18,15 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     text-align: center;
 
     gap: 0.1rem;
     padding: 0.5rem;
+
+    height: 100%;
+    box-sizing: border-box;
 
     background-color: #f2eeee;
     border-radius: 5px;
