@@ -1,0 +1,63 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 1rem;
+
+    background-color: #5a3e36;
+}
+
+.close_button {
+    position: absolute;
+
+    top: 0.5rem;
+    right: 0.5rem;
+
+    width: fit-content;
+    height: fit-content;
+}
+
+.close_icon {
+    width: 32px;
+    height: 32px;
+}
+
+.message_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+
+    padding: 4rem;
+    width: 100%;
+    box-sizing: border-box;
+    gap: 0.5rem;
+
+    border-top: 2px solid #c4c4c4;
+    border-bottom: 2px solid #c4c4c4;
+}
+
+.warning_container {
+    width: fit-content;
+    height: fit-content;
+}
+
+.warning_icon {
+    width: 16px;
+    height: 16px;
+}
+
+.message {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1;
+    text-transform: uppercase;
+
+    color: #c4c4c4;
+}

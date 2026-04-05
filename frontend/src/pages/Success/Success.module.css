@@ -1,0 +1,43 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 1rem;
+
+    background-color: #5a3e36;
+}
+
+.close_button {
+    position: absolute;
+
+    top: 0.5rem;
+    right: 0.5rem;
+
+    width: fit-content;
+    height: fit-content;
+}
+
+.close_icon,
+.smile_icon {
+    width: 32px;
+    height: 32px;
+}
+
+.smile_container {
+    width: fit-content;
+    height: fit-content;
+}
+
+.message {
+    font-size: 0.75em;
+    font-weight: 300;
+    text-transform: uppercase;
+
+    color: white;
+}

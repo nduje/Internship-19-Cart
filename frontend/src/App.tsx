@@ -8,6 +8,7 @@ import Cart from "./pages/Cart/Cart";
 import Checkout from "./pages/Checkout/Checkout";
 import EditProduct from "./pages/EditProduct/EditProduct";
 import EditProfile from "./pages/EditProfile/EditProfile";
+import Error from "./pages/Error/Error";
 import Favorites from "./pages/Favorites/Favorites";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
@@ -18,6 +19,7 @@ import ProductDetail from "./pages/ProductDetail/ProductDetail";
 import Profile from "./pages/Profile/Profile";
 import Register from "./pages/Register/Register";
 import Search from "./pages/Search/Search";
+import Success from "./pages/Success/Success";
 
 function App() {
     return (
@@ -88,6 +90,22 @@ function App() {
                     element={
                         <Layout showHeader={false} showFooter={true}>
                             <Checkout />
+                        </Layout>
+                    }
+                />
+                <Route
+                    path="/success"
+                    element={
+                        <Layout showHeader={false} showFooter={false}>
+                            <Success />
+                        </Layout>
+                    }
+                />
+                <Route
+                    path="/error"
+                    element={
+                        <Layout showHeader={false} showFooter={false}>
+                            <Error />
                         </Layout>
                     }
                 />
