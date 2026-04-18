@@ -44,7 +44,7 @@ const EditProfile = () => {
         queryKey: ["users/me"],
         queryFn: async () => {
             const token = localStorage.getItem("token");
-            const res = await fetch("http://localhost:3000/users/me", {
+            const res = await fetch("/api/users/me", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -133,7 +133,7 @@ const EditProfile = () => {
     const updateUserMutation = useMutation<UsersResponse, Error, User>({
         mutationFn: async (updatedUser) => {
             const token = localStorage.getItem("token");
-            const res = await fetch(`http://localhost:3000/users/me`, {
+            const res = await fetch(`/api/users/me`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",

@@ -35,7 +35,7 @@ const EditProduct = () => {
 
         queryFn: async () => {
             const token = localStorage.getItem("token");
-            const res = await fetch("http://localhost:3000/categories", {
+            const res = await fetch("/api/categories", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -58,7 +58,7 @@ const EditProduct = () => {
 
         queryFn: async () => {
             const token = localStorage.getItem("token");
-            const res = await fetch(`http://localhost:3000/products/${id}`, {
+            const res = await fetch(`/api/products/${id}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -155,7 +155,7 @@ const EditProduct = () => {
     const updateProductMutation = useMutation<ProductResponse, Error, Product>({
         mutationFn: async (updatedProduct) => {
             const token = localStorage.getItem("token");
-            const res = await fetch(`http://localhost:3000/products/${id}`, {
+            const res = await fetch(`/api/products/${id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",

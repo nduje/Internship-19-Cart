@@ -23,7 +23,7 @@ const Filter = ({
         queryFn: async () => {
             const token = localStorage.getItem("token");
 
-            const res = await fetch("http://localhost:3000/categories", {
+            const res = await fetch("/api/categories", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

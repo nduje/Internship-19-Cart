@@ -11,7 +11,7 @@ const Favorites = () => {
         queryFn: async () => {
             const token = localStorage.getItem("token");
 
-            const res = await fetch(`http://localhost:3000/favorites`, {
+            const res = await fetch(`/api/favorites`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

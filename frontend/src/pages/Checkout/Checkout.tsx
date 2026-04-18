@@ -16,7 +16,7 @@ const Checkout = () => {
         queryFn: async () => {
             const token = localStorage.getItem("token");
 
-            const res = await fetch("http://localhost:3000/users/me", {
+            const res = await fetch("/api/users/me", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -58,7 +58,7 @@ const Checkout = () => {
 
             const token = localStorage.getItem("token");
 
-            const res = await fetch("http://localhost:3000/orders", {
+            const res = await fetch("/api/orders", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

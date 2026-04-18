@@ -26,7 +26,7 @@ const ProductDetail = () => {
         queryFn: async () => {
             const token = localStorage.getItem("token");
 
-            const res = await fetch(`http://localhost:3000/products/${id}`, {
+            const res = await fetch(`/api/products/${id}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -88,7 +88,7 @@ const ProductDetail = () => {
         queryFn: async () => {
             const token = localStorage.getItem("token");
 
-            const res = await fetch("http://localhost:3000/favorites", {
+            const res = await fetch("/api/favorites", {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -110,16 +110,13 @@ const ProductDetail = () => {
         mutationFn: async () => {
             const token = localStorage.getItem("token");
 
-            const res = await fetch(
-                `http://localhost:3000/favorites/${product?.id}`,
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
+            const res = await fetch(`/api/favorites/${product?.id}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
                 },
-            );
+            });
 
             if (!res.ok) {
                 const err = await res.json();
@@ -138,15 +135,12 @@ const ProductDetail = () => {
         mutationFn: async () => {
             const token = localStorage.getItem("token");
 
-            const res = await fetch(
-                `http://localhost:3000/favorites/${product?.id}`,
-                {
-                    method: "DELETE",
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
+            const res = await fetch(`/api/favorites/${product?.id}`, {
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${token}`,
                 },
-            );
+            });
 
             if (!res.ok) {
                 const err = await res.json();

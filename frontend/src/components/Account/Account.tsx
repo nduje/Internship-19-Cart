@@ -12,7 +12,7 @@ const Account = () => {
         queryFn: async () => {
             const token = localStorage.getItem("token");
 
-            const res = await fetch("http://localhost:3000/users/me", {
+            const res = await fetch("/api/users/me", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

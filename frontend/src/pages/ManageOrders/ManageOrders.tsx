@@ -21,7 +21,7 @@ const ManageOrders = () => {
             const token = localStorage.getItem("token");
             const query = statusFilter ? `?status=${statusFilter}` : "";
 
-            const res = await fetch(`http://localhost:3000/orders${query}`, {
+            const res = await fetch(`/api/orders${query}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -49,17 +49,14 @@ const ManageOrders = () => {
         mutationFn: async ({ orderId, status }) => {
             const token = localStorage.getItem("token");
 
-            const res = await fetch(
-                `http://localhost:3000/orders/${orderId}/status`,
-                {
-                    method: "PATCH",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
-                    body: JSON.stringify({ status }),
+            const res = await fetch(`/api/orders/${orderId}/status`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
                 },
-            );
+                body: JSON.stringify({ status }),
+            });
 
             if (!res.ok) {
                 const err = await res.json();

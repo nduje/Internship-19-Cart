@@ -28,7 +28,7 @@ The application allows users to browse products, search and filter, manage favor
 
 ### API Endpoints
 
-Swagger documentation is available at http://localhost:3000/api
+Swagger documentation is available at /api/api
 
 **Products**
 

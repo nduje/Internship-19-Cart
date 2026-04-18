@@ -40,16 +40,13 @@ const ManageProducts = () => {
             params.append("page", String(pageParam));
             params.append("limit", String(PRODUCTS_PER_PAGE));
 
-            const res = await fetch(
-                `http://localhost:3000/products?${params.toString()}`,
-                {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
+            const res = await fetch(`/api/products?${params.toString()}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
                 },
-            );
+            });
 
             if (!res.ok) {
                 const err = await res.json();
@@ -100,7 +97,7 @@ const ManageProducts = () => {
     const deleteMutation = useMutation({
         mutationFn: async (id: number) => {
             const token = localStorage.getItem("token");
-            const res = await fetch(`http://localhost:3000/products/${id}`, {
+            const res = await fetch(`/api/products/${id}`, {
                 method: "DELETE",
                 headers: {
                     Authorization: `Bearer ${token}`,

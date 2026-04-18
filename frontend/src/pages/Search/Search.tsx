@@ -33,16 +33,13 @@ const Search = () => {
             params.append("page", String(pageParam));
             params.append("limit", String(PRODUCTS_PER_PAGE));
 
-            const res = await fetch(
-                `http://localhost:3000/products?${params.toString()}`,
-                {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
+            const res = await fetch(`/api/products?${params.toString()}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
                 },
-            );
+            });
 
             if (!res.ok) {
                 const err = await res.json();
@@ -64,7 +61,7 @@ const Search = () => {
         queryFn: async () => {
             const token = localStorage.getItem("token");
 
-            const res = await fetch(`http://localhost:3000/favorites`, {
+            const res = await fetch(`/api/favorites`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
