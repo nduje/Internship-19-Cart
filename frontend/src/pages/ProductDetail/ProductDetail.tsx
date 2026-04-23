@@ -197,6 +197,19 @@ const ProductDetail = () => {
                     ),
             );
         } else {
+            window.dataLayer = window.dataLayer || [];
+
+            window.dataLayer.push({
+                event: "add_to_cart",
+                product_id: product.id,
+                product_name: product.name,
+                price: product.price,
+                category: product.category?.name || "unknown",
+                color: selectedColor,
+                size: selectedSize,
+                page_url: window.location.href,
+            });
+
             cartArray.push({
                 productId: product.id,
                 name: product.name,
